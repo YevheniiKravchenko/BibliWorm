@@ -1,0 +1,21 @@
+{
+  "Auth": {
+    "Issuer": "authServer",
+    "Audience": "webApi",
+    "PublicKeyString": "MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgHGnEQeOzWBneRpyLA17AA+Kq19p\r\n2QX1BLwaR4ukmuuaRNUSWw6a6H9f2T5xzrKUQkh5zQtsGs6AH166jeGeuEiSByKQ\r\nSQ1oY4pTLPH4Pd4PmglgpkKSf+Ob9jcULUQWFPHgCj2nbx2AjE6X05e+f+jF8mQU\r\nV+78wRjqpNQCyvuPAgMBAAE=",
+    "TokenLifetime": "3600",
+    "RefreshTokenLifetime": "36000"
+  },
+  "Connection": {
+    "Host": "DESKTOP-A20GTBP",
+    "Database": "BibliWorm",
+    "Password": "testpass",
+    "ConnectionString": "Server={0};Database={1};User ID=sa;Password={2};TrustServerCertificate=true;"
+  },
+  "EmailCreds": {
+    "EmailHost": "smtp.gmail.com",
+    "EmailUserName": "noreplymangahub@gmail.com",
+    "EmailPassword": "gozr odfg jycg cnsa",
+    "ResetPasswordUrl": "https://localhost:7191/api/User/request-reset-password?token={0}"
+  }
+}

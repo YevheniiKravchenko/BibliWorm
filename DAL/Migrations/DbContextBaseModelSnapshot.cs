@@ -22,6 +22,36 @@ namespace DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("BookEnumItem", b =>
+                {
+                    b.Property<Guid>("BooksBookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("GenresEnumItemId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BooksBookId", "GenresEnumItemId");
+
+                    b.HasIndex("GenresEnumItemId");
+
+                    b.ToTable("BookEnumItem");
+                });
+
+            modelBuilder.Entity("BookUser", b =>
+                {
+                    b.Property<Guid>("FavouriteBooksBookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("UsersUserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FavouriteBooksBookId", "UsersUserId");
+
+                    b.HasIndex("UsersUserId");
+
+                    b.ToTable("BookUser");
+                });
+
             modelBuilder.Entity("Domain.Models.Book", b =>
                 {
                     b.Property<Guid>("BookId")
@@ -29,71 +59,73 @@ namespace DAL.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Author")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("CoverImage")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int>("CurrentAvailableCopies")
+                    b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Genre")
-                        .HasColumnType("int");
 
                     b.Property<string>("ISBN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("bit");
-
                     b.Property<string>("KeyWords")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("PublicationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Publisher")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("RFID")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<Guid?>("ReservationQueueId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TotalCopies")
-                        .HasColumnType("int");
-
                     b.HasKey("BookId");
+
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("Domain.Models.BookBooking", b =>
+            modelBuilder.Entity("Domain.Models.BookCopy", b =>
                 {
-                    b.Property<Guid>("BookBookingId")
+                    b.Property<Guid>("BookCopyId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Condition")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RFID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BookCopyId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("BookCopies");
+                });
+
+            modelBuilder.Entity("Domain.Models.Booking", b =>
+                {
+                    b.Property<Guid>("BookingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookCopyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("BookedOnUtc")
@@ -108,13 +140,40 @@ namespace DAL.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("BookBookingId");
+                    b.HasKey("BookingId");
+
+                    b.HasIndex("BookCopyId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("Domain.Models.BookReview", b =>
+                {
+                    b.Property<Guid>("BookReviewId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Mark")
+                        .HasColumnType("float");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BookReviewId");
 
                     b.HasIndex("BookId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("BookBookings");
+                    b.ToTable("BookReviews");
                 });
 
             modelBuilder.Entity("Domain.Models.Department", b =>
@@ -129,12 +188,103 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumberOfPeopleAttended")
-                        .HasColumnType("int");
-
                     b.HasKey("DepartmentId");
 
                     b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("Domain.Models.DepartmentStatistics", b =>
+                {
+                    b.Property<Guid>("DepartmentStatisticsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfPeopleAttended")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("RecordDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("DepartmentStatisticsId");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("DepartmentStatistics");
+                });
+
+            modelBuilder.Entity("Domain.Models.Enum", b =>
+                {
+                    b.Property<int>("EnumID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnumID"), 1L, 1);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EnumID");
+
+                    b.ToTable("Enums");
+
+                    b.HasData(
+                        new
+                        {
+                            EnumID = 1,
+                            Code = "Genre"
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Models.EnumItem", b =>
+                {
+                    b.Property<int>("EnumItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnumItemId"), 1L, 1);
+
+                    b.Property<int>("EnumId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EnumItemId");
+
+                    b.HasIndex("EnumId");
+
+                    b.ToTable("EnumItems");
+
+                    b.HasData(
+                        new
+                        {
+                            EnumItemId = 1,
+                            EnumId = 1,
+                            Value = "Mystery"
+                        },
+                        new
+                        {
+                            EnumItemId = 2,
+                            EnumId = 1,
+                            Value = "Fantasy"
+                        },
+                        new
+                        {
+                            EnumItemId = 3,
+                            EnumId = 1,
+                            Value = "Science fiction"
+                        },
+                        new
+                        {
+                            EnumItemId = 4,
+                            EnumId = 1,
+                            Value = "Adventure"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Models.ReaderCard", b =>
@@ -169,7 +319,6 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("ProfilePicture")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("UserId");
@@ -182,10 +331,10 @@ namespace DAL.Migrations
                             UserId = 1,
                             Address = "Street Ave. 15",
                             BirthDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Email = "admin@mangahub.com",
+                            Email = "admin@bibliworm.com",
                             FirstName = "Admin",
                             LastName = "Admin",
-                            PhoneNumber = "0505050505",
+                            PhoneNumber = "0555555555",
                             ProfilePicture = new byte[0]
                         });
                 });
@@ -297,21 +446,91 @@ namespace DAL.Migrations
                             Login = "Admin",
                             PasswordHash = "$2a$10$WkrWKFdubfRwcY4MjdFELui7Dh8r3ykAvDYOQPvQud0vPlxFHVen.",
                             PasswordSalt = "d!W2~4~zI{wq:l<p",
-                            RegistrationDate = new DateTime(2023, 11, 7, 0, 39, 36, 158, DateTimeKind.Utc).AddTicks(9240),
+                            RegistrationDate = new DateTime(2023, 11, 17, 13, 12, 33, 61, DateTimeKind.Utc).AddTicks(4029),
                             Role = 1
                         });
                 });
 
-            modelBuilder.Entity("Domain.Models.BookBooking", b =>
+            modelBuilder.Entity("BookEnumItem", b =>
+                {
+                    b.HasOne("Domain.Models.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksBookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.EnumItem", null)
+                        .WithMany()
+                        .HasForeignKey("GenresEnumItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BookUser", b =>
+                {
+                    b.HasOne("Domain.Models.Book", null)
+                        .WithMany()
+                        .HasForeignKey("FavouriteBooksBookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Models.Book", b =>
+                {
+                    b.HasOne("Domain.Models.Department", "Department")
+                        .WithMany("Books")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("Domain.Models.BookCopy", b =>
                 {
                     b.HasOne("Domain.Models.Book", "Book")
-                        .WithMany("BookBookings")
+                        .WithMany("BookCopies")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("Domain.Models.Booking", b =>
+                {
+                    b.HasOne("Domain.Models.BookCopy", "BookCopy")
+                        .WithMany("Bookings")
+                        .HasForeignKey("BookCopyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.User", "User")
+                        .WithMany("Bookings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BookCopy");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Models.BookReview", b =>
+                {
+                    b.HasOne("Domain.Models.Book", "Book")
+                        .WithMany("BookReviews")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Models.User", "User")
-                        .WithMany("BookBookings")
+                        .WithMany("BookReviews")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -319,6 +538,28 @@ namespace DAL.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Models.DepartmentStatistics", b =>
+                {
+                    b.HasOne("Domain.Models.Department", "Department")
+                        .WithMany("DepartmentStatistics")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("Domain.Models.EnumItem", b =>
+                {
+                    b.HasOne("Domain.Models.Enum", "Enum")
+                        .WithMany("EnumItems")
+                        .HasForeignKey("EnumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Enum");
                 });
 
             modelBuilder.Entity("Domain.Models.ReaderCard", b =>
@@ -375,17 +616,37 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("Domain.Models.Book", b =>
                 {
-                    b.Navigation("BookBookings");
+                    b.Navigation("BookCopies");
+
+                    b.Navigation("BookReviews");
 
                     b.Navigation("ReservationQueues");
                 });
 
+            modelBuilder.Entity("Domain.Models.BookCopy", b =>
+                {
+                    b.Navigation("Bookings");
+                });
+
+            modelBuilder.Entity("Domain.Models.Department", b =>
+                {
+                    b.Navigation("Books");
+
+                    b.Navigation("DepartmentStatistics");
+                });
+
+            modelBuilder.Entity("Domain.Models.Enum", b =>
+                {
+                    b.Navigation("EnumItems");
+                });
+
             modelBuilder.Entity("Domain.Models.User", b =>
                 {
-                    b.Navigation("BookBookings");
+                    b.Navigation("BookReviews");
 
-                    b.Navigation("ReaderCard")
-                        .IsRequired();
+                    b.Navigation("Bookings");
+
+                    b.Navigation("ReaderCard");
 
                     b.Navigation("RefreshTokens");
 

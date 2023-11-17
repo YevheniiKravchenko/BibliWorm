@@ -1,13 +1,13 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace Domain.Models;
-public class ReservationQueue
+public class BookReview
 {
-    public Guid ReservationQueueId { get; set; }
+    public Guid BookReviewId { get; set; }
 
-    public int QueuePosition { get; set; }
+    public double Mark { get; set; }
 
-    public DateTime ReservationDate { get; set; }
+    public string Comment { get; set; }
 
     public Guid BookId { get; set; }
 

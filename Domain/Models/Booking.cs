@@ -1,13 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace Domain.Models;
-public class BookBooking
+public class Booking
 {
-    public Guid BookBookingId { get; set; }
-
-    public Guid BookId { get; set; }
-
-    public int UserId { get; set; }
+    public Guid BookingId { get; set; }
 
     public DateTime BookedOnUtc { get; set; }
 
@@ -15,10 +11,14 @@ public class BookBooking
 
     public DateTime? ReturnedOnUtc { get; set; }
 
+    public Guid BookCopyId { get; set; }
+
+    public int UserId { get; set; }
+
     #region Relations
 
     [JsonIgnore]
-    public Book Book { get; set; }
+    public BookCopy BookCopy { get; set; }
 
     [JsonIgnore]
     public User User { get; set; }

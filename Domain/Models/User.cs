@@ -33,7 +33,7 @@ namespace Domain.Models
         public ReaderCard ReaderCard { get; set; }
 
         [JsonIgnore]
-        public ICollection<BookBooking> BookBookings { get; set; }
+        public ICollection<Booking> Bookings { get; set; }
 
         [JsonIgnore]
         public ICollection<ReservationQueue> ReservationQueues { get; set; }
@@ -43,6 +43,12 @@ namespace Domain.Models
 
         [JsonIgnore]
         public ICollection<ResetPasswordToken> ResetPasswordTokens { get; set; }
+
+        [JsonIgnore]
+        public ICollection<Book> FavouriteBooks { get; set; }
+
+        [JsonIgnore]
+        public ICollection<BookReview> BookReviews { get; set; }
 
         #endregion
     }

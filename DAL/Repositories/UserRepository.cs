@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.Enums;
 using DAL.Contracts;
 using DAL.DbContexts;
 using DAL.Infrastructure.Extensions;
@@ -172,7 +173,7 @@ namespace DAL.Repositories
             }
         }
 
-        public void UpdateUserProfileInfo(UserProfileInfo model)
+        public void UpdateReaderCard(UserProfileInfo model)
         {
             using var scope = _dbContext.Database.BeginTransaction();
 
@@ -245,11 +246,11 @@ namespace DAL.Repositories
             }
         }
 
-        public void SetIsAdminValueForUser(int userId, bool isAdmin)
+        public void SetUserRole(int userId, Role role)
         {
             var user = GetUserById(userId);
 
-            //user.IsAdmin = isAdmin;
+            user.Role = role;
 
             _dbContext.Commit();
         }

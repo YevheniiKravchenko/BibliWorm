@@ -2,6 +2,7 @@
 using BLL.Contracts;
 using BLL.Infrastructure.Models;
 using Common.Configs;
+using Common.Enums;
 using DAL.Contracts;
 using DAL.Infrastructure.Models;
 
@@ -76,9 +77,9 @@ namespace BLL.Services
             _unitOfWork.Value.Users.Value.ResetPassword(resetPasswordModel.Token, resetPasswordModel.Password);
         }
 
-        public void UpdateUserInfo(UserProfileInfo model)
+        public void UpdateReaderCard(UserProfileInfo model)
         {
-            _unitOfWork.Value.Users.Value.UpdateUserProfileInfo(model);
+            _unitOfWork.Value.Users.Value.UpdateReaderCard(model);
         }
         
         public bool IsResetPasswordTokenValid(string token)
@@ -86,9 +87,9 @@ namespace BLL.Services
             return _unitOfWork.Value.Users.Value.IsResetPasswordTokenValid(token);
         }
 
-        public void SetIsAdminValueForUser(int userId, bool isAdmin)
+        public void SetUserRole(int userId, Role role)
         {
-            _unitOfWork.Value.Users.Value.SetIsAdminValueForUser(userId, isAdmin);
+            _unitOfWork.Value.Users.Value.SetUserRole(userId, role);
         }
     }
 }

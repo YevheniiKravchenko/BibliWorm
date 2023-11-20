@@ -1,4 +1,5 @@
-﻿using DAL.Infrastructure.Models;
+﻿using Common.Enums;
+using DAL.Infrastructure.Models;
 using Domain.Models;
 
 namespace DAL.Contracts
@@ -9,7 +10,7 @@ namespace DAL.Contracts
 
         User GetUserById(int userId);
 
-        void UpdateUserProfileInfo(UserProfileInfo model);
+        void UpdateReaderCard(UserProfileInfo model);
 
         User LoginUser(string login, string password);
 
@@ -27,6 +28,6 @@ namespace DAL.Contracts
 
         string GenerateResetPasswordToken(int userId);
 
-        void SetIsAdminValueForUser(int userId, bool isAdmin);
+        void SetUserRole(int userId, Role role);
     }
 }

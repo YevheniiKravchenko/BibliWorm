@@ -1,5 +1,6 @@
 ﻿using BLL.Contracts;
 using BLL.Infrastructure.Models;
+using Common.Enums;
 using DAL.Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -84,11 +85,11 @@ namespace WebAPI.Controllers
             return Ok(user);
         }
 
-        [HttpPost("set-isadmin-value")]
+        [HttpPost("set-user-role")]
         [Authorize(Roles = "Admin")]
-        public ActionResult SetIsAdminValueForUser(int userId, bool isAdmin)
+        public ActionResult SetUserRole(int userId, Role role)
         {
-            _userService.Value.SetIsAdminValueForUser(userId, isAdmin);
+            _userService.Value.SetUserRole(userId, role);
 
             return Ok();
         }

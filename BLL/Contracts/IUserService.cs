@@ -1,4 +1,5 @@
 ﻿using BLL.Infrastructure.Models;
+using Common.Enums;
 using DAL.Infrastructure.Models;
 
 namespace BLL.Contracts
@@ -9,7 +10,7 @@ namespace BLL.Contracts
 
         IEnumerable<UserProfileModel> GetAllUsers(PagingModel pagingModel);
 
-        void UpdateUserInfo(UserProfileInfo model);
+        void UpdateReaderCard(UserProfileInfo model);
 
         UserModel LoginUser(string login, string password);
 
@@ -23,6 +24,6 @@ namespace BLL.Contracts
 
         bool IsResetPasswordTokenValid(string token);
 
-        void SetIsAdminValueForUser(int userId, bool isAdmin);
+        void SetUserRole(int userId, Role role);
     }
 }

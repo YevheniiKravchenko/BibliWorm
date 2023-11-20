@@ -27,6 +27,8 @@ namespace Domain.Models
 
         public Role Role { get; set; }
 
+        public bool IsBlocked { get; set; }
+
         #region Relations
 
         [JsonIgnore]

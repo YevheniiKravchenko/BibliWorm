@@ -8,13 +8,13 @@ namespace DAL.Infrastructure.Automapper
     {
         public UserProfile()
         {
-            CreateMap<UserProfileInfo, Domain.Models.ReaderCard>()
+            CreateMap<UserProfileInfo, ReaderCard>()
                 .ReverseMap();
 
             CreateMap<RegisterUserModel, User>()
                 .ReverseMap();
 
-            CreateMap<RegisterUserModel, Domain.Models.ReaderCard>()
+            CreateMap<RegisterUserModel, ReaderCard>()
                 .ReverseMap();
         }
     }

@@ -10,7 +10,7 @@ namespace DAL.Infrastructure.Extensions
                 return query;
 
             return (IOrderedEnumerable<T>)query
-                .Skip((model.PageCount - 1) * model.PageSize)
+                .Skip((model.PageNumber - 1) * model.PageSize)
                 .Take(model.PageSize);
         }
     }

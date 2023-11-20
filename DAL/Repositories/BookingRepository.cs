@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
+using DAL.Contracts;
 using DAL.DbContexts;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DAL.Contracts;
+namespace DAL.Repositories;
 public class BookingRepository : IBookingRepository
 {
     private readonly DbContextBase _dbContext;

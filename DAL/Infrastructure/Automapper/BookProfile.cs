@@ -29,5 +29,17 @@ public class BookProfile : Profile
                 opts.AllowNull();
                 opts.Condition((src, dest, srcMember) => srcMember != null);
             });
+
+        CreateMap<Booking, Booking>()
+            .ForAllMembers(opts =>
+            {
+                opts.Condition((src, dest, srcMember) => srcMember != null);
+            });
+
+        CreateMap<ReservationQueue, ReservationQueue>()
+            .ForAllMembers(opts =>
+            {
+                opts.Condition((src, dest, srcMember) => srcMember != null);
+            });
     }
 }

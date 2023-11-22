@@ -3,9 +3,9 @@
 namespace BLL.Contracts;
 public interface IBookReviewService
 {
-    void AddBookReview(BookReviewModel bookReviewModel);
+    void AddBookReview(CreateUpdateBookReviewModel bookReviewModel);
 
-    void UpdateBookReview(BookReviewModel bookReviewModel);
+    void UpdateBookReview(CreateUpdateBookReviewModel bookReviewModel);
 
     void DeleteBookReview(Guid bookReviewId);
 

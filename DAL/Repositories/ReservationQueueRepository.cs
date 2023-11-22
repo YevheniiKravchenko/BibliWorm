@@ -43,6 +43,16 @@ public class ReservationQueueRepository : IReservationQueueRepository
         _dbContext.Commit();
     }
 
+    public void Delete(List<Guid> reservationQueuesIds) 
+    {
+        var reservationQueuesToDelete = GetAll()
+            .Where(rq => reservationQueuesIds.Contains(rq.ReservationQueueId))
+            .ToList();
+
+        _reservationQueues.RemoveRange(reservationQueuesToDelete);
+        _dbContext.Commit();
+    }
+
     public IQueryable<ReservationQueue> GetAll()
     {
         return _reservationQueues.AsQueryable();

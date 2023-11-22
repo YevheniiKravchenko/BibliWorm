@@ -5,6 +5,8 @@ using Common.Configs;
 using Common.Enums;
 using DAL.Contracts;
 using DAL.Infrastructure.Models;
+using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BLL.Services
 {
@@ -90,6 +92,37 @@ namespace BLL.Services
         public void SetUserRole(int userId, Role role)
         {
             _unitOfWork.Value.Users.Value.SetUserRole(userId, role);
+        }
+
+        public void AddBookToFavourites(int userId, Guid bookId)
+        {
+            var user = _unitOfWork.Value.Users.Value.GetUserById(userId);
+            var book = _unitOfWork.Value.Books.Value.GetById(bookId);
+
+            book.Users.Add(user);
+            _unitOfWork.Value.Books.Value.Update(book);
+        }
+
+        public void RemoveBookFromFavourites(int userId, Guid bookId)
+        {
+            var user = _unitOfWork.Value.Users.Value.GetUserById(userId);
+            var book = _unitOfWork.Value.Books.Value.GetById(bookId);
+
+            book.Users.Remove(user);
+            _unitOfWork.Value.Books.Value.Update(book);
+        }
+
+        public void ReserveBook(int userId, Guid bookId)
+        {
+            var reservationQueue = new ReservationQueue
+            {
+                ReservationQueueId = Guid.Empty,
+                ReservationDate = DateTime.UtcNow,
+                BookId = bookId,
+                UserId = userId
+            };
+
+            _unitOfWork.Value.ReservationQueues.Value.Create(reservationQueue);
         }
     }
 }

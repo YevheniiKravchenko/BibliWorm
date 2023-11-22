@@ -33,6 +33,12 @@ public class BookingRepository : IBookingRepository
         _dbContext.Commit();
     }
 
+    public void Create(List<Booking> newBookings)
+    {
+        _bookings.AddRange(newBookings);
+        _dbContext.Commit();
+    }
+
     public void Delete(Guid bookingId)
     {
         var booking = _bookings.FirstOrDefault(b => b.BookingId == bookingId)
@@ -41,6 +47,14 @@ public class BookingRepository : IBookingRepository
         _bookings.Remove(booking);
         _dbContext.Commit();
     }
+
+    //public void Delete(List<Guid> bookingsIds)
+    //{
+    //    var bookingsToDelete = GetAll().Where(b => bookingsIds.Contains(b.BookingId));
+
+    //    _bookings.RemoveRange(bookingsToDelete);
+    //    _dbContext.Commit();
+    //}
 
     public IQueryable<Booking> GetAll()
     {
@@ -61,6 +75,12 @@ public class BookingRepository : IBookingRepository
             ?? throw new ArgumentException("INVALID_BOOKING_ID");
 
         booking = _mapper.Value.Map(updatedBooking, booking);
+        _dbContext.Commit();
+    }
+
+    public void Update(List<Booking> updatedBookings)
+    {
+        _bookings.UpdateRange(updatedBookings);
         _dbContext.Commit();
     }
 }

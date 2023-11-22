@@ -20,6 +20,8 @@ namespace DAL.Repositories
         private readonly DbSet<ReaderCard> _userProfiles;
         private readonly DbSet<RefreshToken> _refreshTokens;
         private readonly DbSet<ResetPasswordToken> _resetPasswordTokens;
+        private readonly DbSet<Book> _books;
+        private readonly DbSet<ReservationQueue> _reservationQueues;
 
         public UserRepository(
             DbContextBase dbContext,
@@ -32,6 +34,8 @@ namespace DAL.Repositories
             _userProfiles = dbContext.ReaderCards;
             _refreshTokens = dbContext.RefreshTokens;
             _resetPasswordTokens = dbContext.ResetPasswordTokens;
+            _books = dbContext.Books;
+            _reservationQueues = _dbContext.ReservationQueues;
         }
 
         public Guid CreateRefreshToken(int userId, int shiftInSeconds)

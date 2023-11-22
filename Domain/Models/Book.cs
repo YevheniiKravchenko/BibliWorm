@@ -20,6 +20,8 @@ public class Book
 
     public string Description { get; set; }
 
+    public int PagesAmount { get; set; }
+
     public byte[] CoverImage { get; set; }
 
     public string KeyWords { get; set; }

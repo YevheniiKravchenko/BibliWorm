@@ -18,7 +18,7 @@ public class BookReviewService : IBookReviewService
         _mapper = mapper;
     }
 
-    public void AddBookReview(BookReviewModel bookReviewModel)
+    public void AddBookReview(CreateUpdateBookReviewModel bookReviewModel)
     {
         var bookReview = _mapper.Value.Map<BookReview>(bookReviewModel);
 
@@ -47,7 +47,7 @@ public class BookReviewService : IBookReviewService
         return reviewsForBookModels;
     }
 
-    public void UpdateBookReview(BookReviewModel bookReviewModel)
+    public void UpdateBookReview(CreateUpdateBookReviewModel bookReviewModel)
     {
         var bookReview = _mapper.Value.Map<BookReview>(bookReviewModel);
 

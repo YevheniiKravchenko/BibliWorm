@@ -1,4 +1,5 @@
 ﻿using BLL.Infrastructure.Models;
+using BLL.Infrastructure.Models.Book;
 using Common.Enums;
 using DAL.Infrastructure.Models;
 
@@ -25,5 +26,11 @@ namespace BLL.Contracts
         bool IsResetPasswordTokenValid(string token);
 
         void SetUserRole(int userId, Role role);
+
+        void AddBookToFavourites(int userId, Guid bookId);
+
+        void RemoveBookFromFavourites(int userId, Guid bookId);
+
+        void ReserveBook(int userId, Guid bookId);
     }
 }

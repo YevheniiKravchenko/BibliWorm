@@ -7,6 +7,8 @@ public interface IReservationQueueRepository
 
     void Delete(Guid reservationQueueId);
 
+    void Delete(List<Guid> reservationQueuesIds);
+
     IQueryable<ReservationQueue> GetAll();
 
     ReservationQueue GetById(Guid reservationQueueId);

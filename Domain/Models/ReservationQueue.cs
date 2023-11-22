@@ -5,8 +5,6 @@ public class ReservationQueue
 {
     public Guid ReservationQueueId { get; set; }
 
-    public int QueuePosition { get; set; }
-
     public DateTime ReservationDate { get; set; }
 
     public Guid BookId { get; set; }

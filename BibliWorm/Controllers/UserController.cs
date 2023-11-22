@@ -1,6 +1,6 @@
-﻿using BLL.Contracts;
+﻿using BibliWorm.Infrastructure.Models;
+using BLL.Contracts;
 using BLL.Infrastructure.Models;
-using Common.Enums;
 using DAL.Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("register")]
-        public ActionResult Register([FromBody]RegisterUserModel registerModel)
+        public ActionResult Register([FromBody] RegisterUserModel registerModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -35,7 +35,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("forgot-password")]
-        public ActionResult ForgotPassword([FromBody]ForgotPasswordModel forgotPassword)
+        public ActionResult ForgotPassword([FromBody] ForgotPasswordModel forgotPassword)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -46,7 +46,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("request-reset-password")]
-        public ActionResult RequestResetPassword(string token)
+        public ActionResult RequestResetPassword([FromQuery] string token)
         {
             var isTokenValid = _userService.Value.IsResetPasswordTokenValid(token);
 
@@ -57,7 +57,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("reset-password")]
-        public ActionResult ResetPassword(ResetPasswordModel resetPasswordModel)
+        public ActionResult ResetPassword([FromBody] ResetPasswordModel resetPasswordModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -69,7 +69,7 @@ namespace WebAPI.Controllers
 
         [HttpGet("get-all")]
         [Authorize]
-        public ActionResult GetAll([FromQuery]PagingModel paging)
+        public ActionResult GetAll([FromQuery] PagingModel paging)
         {
             var users = _userService.Value.GetAllUsers(paging);
 
@@ -78,7 +78,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult GetUserProfileById(int userId)
+        public ActionResult GetUserProfileById([FromQuery] int userId)
         {
             var user = _userService.Value.GetUserProfileById(userId);
 
@@ -87,11 +87,46 @@ namespace WebAPI.Controllers
 
         [HttpPost("set-user-role")]
         [Authorize(Roles = "Admin")]
-        public ActionResult SetUserRole(int userId, Role role)
+        public ActionResult SetUserRole([FromBody] SetUserRoleModel model)
         {
-            _userService.Value.SetUserRole(userId, role);
+            _userService.Value.SetUserRole(model.UserId, model.Role);
 
             return Ok();
+        }
+
+        [HttpPost("add-book-to-favourites")]
+        [Authorize]
+        public ActionResult AddBookToFavourites([FromBody] AddRemoveBookFromFavouritesModel model)
+        {
+            _userService.Value.AddBookToFavourites(model.UserId, model.BookId);
+
+            return Ok();
+        }
+
+        [HttpPost("remove-book-from-favourites")]
+        [Authorize]
+        public ActionResult RemoveBookFromFavourites([FromBody] AddRemoveBookFromFavouritesModel model)
+        {
+            _userService.Value.RemoveBookFromFavourites(model.UserId, model.BookId);
+
+            return Ok();
+        }
+
+        [HttpPost("reserve-book")]
+        public ActionResult ReserveBook([FromBody] ReserveBookModel model)
+        {
+            _userService.Value.ReserveBook(model.UserId, model.BookId);
+
+            return Ok();
+        }
+
+        [HttpGet("get-user-statistics")]
+        [Authorize]
+        public ActionResult GetUserStatistics([FromQuery] int userId)
+        {
+            var userStatistics = _userService.Value.GetUserStatistics(userId);
+
+            return Ok(userStatistics);
         }
     }
 }

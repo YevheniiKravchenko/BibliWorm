@@ -10,13 +10,16 @@ public class BookService : IBookService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly Lazy<IMapper> _mapper;
+    private readonly Lazy<IUserService> _userService;
 
     public BookService(
         IUnitOfWork unitOfWork,
-        Lazy<IMapper> mapper)
+        Lazy<IMapper> mapper,
+        Lazy<IUserService> userService)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _userService = userService;
     }
 
     public void AddBook(CreateUpdateBookModel bookModel)
@@ -58,10 +61,13 @@ public class BookService : IBookService
             });
         }
 
-        // TODO Remove reservations
+        var reservationQueuesIds = _unitOfWork.ReservationQueues.Value.GetAll()
+            .Where(rq => rq.UserId == userId && rq.Book.BookCopies
+                .Any(bc => bookCopiesIds.Contains(bc.BookCopyId)))
+            .Select(rq => rq.ReservationQueueId)
+            .ToList();
 
-        //var reservationQueues = _unitOfWork.ReservationQueues.Value.GetAll()
-        //    .Where(rq => rq.UserId == userId )) 
+        _unitOfWork.ReservationQueues.Value.Delete(reservationQueuesIds);
 
         _unitOfWork.Bookings.Value.Create(bookings);
     }
@@ -91,7 +97,6 @@ public class BookService : IBookService
         var bookCopiesModels = _mapper.Value.Map<List<BookCopyListItemModel>>(bookCopies);
 
         return bookCopiesModels;
-
     }
 
     public BookCopyModel GetBookCopyById(Guid bookCopyId)
@@ -175,11 +180,11 @@ public class BookService : IBookService
             .Count();
 
         if (alreadyReadBooksAmount == 0)
-            throw new ArgumentException("NOT_ENOUGH_DATA");
+            throw new ArgumentException("NO_DATA");
 
-        var userFavouriteGenre = 1;
+        var userFavouriteGenreId = _userService.Value.GetUserFavouriteGenre(userId).EnumItemId;
 
-        var recomendedBooks = GetMostPopularBooksInGenre(userFavouriteGenre);
+        var recomendedBooks = GetMostPopularBooksInGenre(userFavouriteGenreId);
 
         return recomendedBooks;
     }

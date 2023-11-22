@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using BLL.Contracts;
 using BLL.Infrastructure.Models;
+using BLL.Infrastructure.Models.EnumItem;
 using Common.Configs;
 using Common.Enums;
 using DAL.Contracts;
 using DAL.Infrastructure.Models;
 using Domain.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace BLL.Services
 {
@@ -123,6 +123,66 @@ namespace BLL.Services
             };
 
             _unitOfWork.Value.ReservationQueues.Value.Create(reservationQueue);
+        }
+
+        public UserStatisticsModel GetUserStatistics(int userId)
+        {
+            var userStatistics = new UserStatisticsModel();
+            var bookings = _unitOfWork.Value.Bookings.Value
+                .GetAll()
+                .Where(b => b.UserId == userId)
+                .ToList();
+
+            userStatistics.UserId = userId;
+            userStatistics.TotalBooksRead = bookings
+                .Where(b => b.ReturnedOnUtc != null)
+                .Count();
+            userStatistics.FavouriteGenre = GetUserFavouriteGenre(userId).Value;
+            userStatistics.BiggestBookRead = bookings
+                .Select(b => b.BookCopy.Book)
+                .OrderByDescending(b => b.PagesAmount)
+                .FirstOrDefault()?
+                .Title ?? "";
+            userStatistics.TotalPagesRead = bookings
+                .Where(b => b.ReturnedOnUtc != null)
+                .Select(b => b.BookCopy.Book)
+                .Sum(b => b.PagesAmount);
+
+            userStatistics.BookReadFastest = bookings
+                .Where(b => b.ReturnedOnUtc != null)
+                .OrderByDescending(b => b.ReturnedOnUtc - b.BookedOnUtc)
+                .FirstOrDefault()?.BookCopy?.Book?.Title ?? "";
+
+            userStatistics.CurrentlyReadingBooksAmount = bookings
+                .Where(b => b.ReturnedOnUtc == null)
+                .Count();
+
+            userStatistics.WrittenReviewsAmount = _unitOfWork.Value.BookReviews.Value
+                .GetAll()
+                .Where(b => b.UserId == userId)
+                .Count();
+
+            return userStatistics;
+        }
+
+        public EnumItemModel GetUserFavouriteGenre(int userId)
+        {
+            var enumItem = _unitOfWork.Value.Bookings.Value.GetAll()
+                .Where(b => b.UserId == userId)
+                .SelectMany(b => b.BookCopy.Book.Genres)
+                .GroupBy(g => g.EnumItemId)
+                .Select(x => new
+                {
+                    EnumItemId = x.Key,
+                    EnumItem = x.FirstOrDefault(y => y.EnumItemId == x.Key),
+                    Amount = x.Where(y => y.EnumItemId == x.Key).Count()
+                })
+                .OrderByDescending(x => x.Amount)
+                .FirstOrDefault()!.EnumItem;
+
+            var enumItemModel = _mapper.Value.Map<EnumItemModel>(enumItem);
+
+            return enumItemModel;
         }
     }
 }

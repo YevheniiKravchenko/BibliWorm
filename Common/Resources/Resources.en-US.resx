@@ -97,82 +97,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TABLE_NOT_FOUND" xml:space="preserve">
-    <value>Table not found</value>
+  <data name="BOOK_COPY_NOT_FOUND" xml:space="preserve">
+    <value>Book copy not found</value>
   </data>
-  <data name="RESTAURANT_NOT_FOUND" xml:space="preserve">
-    <value>Restaurant not found</value>
+  <data name="INVALID_BOOK_COPY_ID" xml:space="preserve">
+    <value>Invalid book copy Id</value>
   </data>
-  <data name="PAYMENT_CREDENTIALS_NOT_FOUND" xml:space="preserve">
-    <value>Payment credentials not found</value>
+  <data name="INVALID_BOOK_ID" xml:space="preserve">
+    <value>Invalid book copy Id</value>
   </data>
-  <data name="TRANSACTION_NOT_FOUND" xml:space="preserve">
-    <value>Transaction not found</value>
+  <data name="INVALID_BOOKING_ID" xml:space="preserve">
+    <value>Invalid booking Id</value>
   </data>
-  <data name="USER_NOT_FOUND" xml:space="preserve">
-    <value>User not found</value>
+  <data name="BOOKING_NOT_FOUND" xml:space="preserve">
+    <value>Booking not found</value>
+  </data>
+  <data name="INVALID_DEPARTMENT_ID" xml:space="preserve">
+    <value>Invalid department Id</value>
+  </data>
+  <data name="BOOK_NOT_FOUND" xml:space="preserve">
+    <value>Book not found</value>
+  </data>
+  <data name="INVALID_BOOK_REVIEW_ID" xml:space="preserve">
+    <value>Invalid book review Id</value>
+  </data>
+  <data name="BOOK_REVIEW_NOT_FOUND" xml:space="preserve">
+    <value>Book review not found</value>
+  </data>
+  <data name="DEPARTMENT_NOT_FOUND" xml:space="preserve">
+    <value>Department not found</value>
+  </data>
+  <data name="INVALID_ENUM_ID" xml:space="preserve">
+    <value>Invalid enumeration Id</value>
+  </data>
+  <data name="INVALID_ENUM_ITEM_ID" xml:space="preserve">
+    <value>Invalid enumeration item Id</value>
+  </data>
+  <data name="ENUM_ITEM_NOT_FOUND" xml:space="preserve">
+    <value>Enumeration item not found</value>
+  </data>
+  <data name="INVALID_RESERVATION_QUEUE_ID" xml:space="preserve">
+    <value>Invalid reservation Id</value>
+  </data>
+  <data name="RESERVATION_QUEUE_NOT_FOUND" xml:space="preserve">
+    <value>Reservation not found</value>
+  </data>
+  <data name="INVALID_USERID" xml:space="preserve">
+    <value>Invalid user Id</value>
   </data>
   <data name="INVALID_REFRESH_TOKEN" xml:space="preserve">
     <value>Invalid refresh token</value>
   </data>
   <data name="LOGIN_EXISTS" xml:space="preserve">
-    <value>User with such login already exists</value>
+    <value>Login is already used</value>
   </data>
   <data name="EMAIL_EXISTS" xml:space="preserve">
-    <value>User with such login already exists</value>
+    <value>Email is already used</value>
   </data>
   <data name="INVALID_RESET_PASSWORD_TOKEN" xml:space="preserve">
     <value>Invalid reset password token</value>
-  </data>
-  <data name="USER_WITH_EMAIL_NOT_FOUND" xml:space="preserve">
-    <value>User with such email not found</value>
-  </data>
-  <data name="BILL_NOT_FOUND" xml:space="preserve">
-    <value>Bill not found</value>
-  </data>
-  <data name="TARIFITEM_NOT_FOUND" xml:space="preserve">
-    <value>TarifItem not found</value>
-  </data>
-  <data name="BILLITEM_NOT_FOUND" xml:space="preserve">
-    <value>BillItem not found</value>
-  </data>
-  <data name="PAYMENT_SERVICE_NOT_FOUND" xml:space="preserve">
-    <value>Payment service not found</value>
-  </data>
-  <data name="RESET_PASSWORD" xml:space="preserve">
-    <value>Reset password</value>
-  </data>
-  <data name="RESET_PASSWORD_MESSAGE" xml:space="preserve">
-    <value>To reset password please follow the link</value>
-  </data>
-  <data name="EMPTY_FILE" xml:space="preserve">
-    <value>File is empty</value>
-  </data>
-  <data name="REQUIRED_FIELD" xml:space="preserve">
-    <value></value>
-  </data>
-  <data name="UNKNOWN" xml:space="preserve">
-    <value>Unknown</value>
-  </data>
-  <data name="CREATED" xml:space="preserve">
-    <value>Created</value>
-  </data>
-  <data name="PROCESSING" xml:space="preserve">
-    <value>In process</value>
-  </data>
-  <data name="APPROVED" xml:space="preserve">
-    <value>Approved</value>
-  </data>
-  <data name="DECLINED" xml:space="preserve">
-    <value>Declined</value>
-  </data>
-  <data name="PURCHASE" xml:space="preserve">
-    <value>Purchase</value>
-  </data>
-  <data name="SETTLEMENT" xml:space="preserve">
-    <value>Settlement</value>
-  </data>
-  <data name="VERIFICATION" xml:space="preserve">
-    <value>Verification</value>
   </data>
 </root>

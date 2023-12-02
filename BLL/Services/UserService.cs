@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BLL.Contracts;
 using BLL.Infrastructure.Models;
+using BLL.Infrastructure.Models.Book;
 using BLL.Infrastructure.Models.EnumItem;
 using Common.Configs;
 using Common.Enums;
@@ -125,6 +126,11 @@ namespace BLL.Services
             _unitOfWork.Value.ReservationQueues.Value.Create(reservationQueue);
         }
 
+        public void RemoveBookReserve(Guid reservationId)
+        {
+            _unitOfWork.Value.ReservationQueues.Value.Delete(reservationId);
+        }
+
         public UserStatisticsModel GetUserStatistics(int userId)
         {
             var userStatistics = new UserStatisticsModel();
@@ -183,6 +189,16 @@ namespace BLL.Services
             var enumItemModel = _mapper.Value.Map<EnumItemModel>(enumItem);
 
             return enumItemModel;
+        }
+
+        public List<BookListItemModel> GetFavouriteBooks(int userId)
+        {
+            var user = _unitOfWork.Value.Users.Value.GetUserById(userId);
+            var favouriteBooks = user.FavouriteBooks;
+
+            var favouriteBooksModels = _mapper.Value.Map<List<BookListItemModel>>(favouriteBooks);
+
+            return favouriteBooksModels;
         }
     }
 }

@@ -120,6 +120,15 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
+        [HttpGet("get-favourite-books")]
+        [Authorize]
+        public ActionResult GetFavouriteBooks([FromQuery] int userId)
+        {
+            var favouriteBooks = _userService.Value.GetFavouriteBooks(userId);
+
+            return Ok(favouriteBooks);
+        }
+
         [HttpGet("get-user-statistics")]
         [Authorize]
         public ActionResult GetUserStatistics([FromQuery] int userId)
@@ -127,6 +136,15 @@ namespace WebAPI.Controllers
             var userStatistics = _userService.Value.GetUserStatistics(userId);
 
             return Ok(userStatistics);
+        }
+
+        [HttpDelete("remove-book-reserve")]
+        [Authorize]
+        public ActionResult RemoveBookReserve([FromQuery] Guid reservationId)
+        {
+            _userService.Value.RemoveBookReserve(reservationId);
+
+            return Ok();
         }
     }
 }

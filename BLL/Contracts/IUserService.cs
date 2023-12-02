@@ -1,4 +1,5 @@
 ﻿using BLL.Infrastructure.Models;
+using BLL.Infrastructure.Models.Book;
 using BLL.Infrastructure.Models.EnumItem;
 using Common.Enums;
 using DAL.Infrastructure.Models;
@@ -33,8 +34,12 @@ namespace BLL.Contracts
 
         void ReserveBook(int userId, Guid bookId);
 
+        void RemoveBookReserve(Guid reservationId);
+
         UserStatisticsModel GetUserStatistics(int userId);
 
         EnumItemModel GetUserFavouriteGenre(int userId);
+
+        List<BookListItemModel> GetFavouriteBooks(int userId);
     }
 }

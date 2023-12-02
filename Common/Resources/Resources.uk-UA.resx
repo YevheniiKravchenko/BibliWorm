@@ -97,79 +97,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TABLE_NOT_FOUND" xml:space="preserve">
-    <value>Стіл не знайдено</value>
+  <data name="BOOK_COPY_NOT_FOUND" xml:space="preserve">
+    <value>Копія книги не знайдена</value>
   </data>
-  <data name="EMAIL_EXISTS" xml:space="preserve">
-    <value>Користувач з даною електронною адресою вже існує</value>
+  <data name="INVALID_BOOK_COPY_ID" xml:space="preserve">
+    <value>Недійсний ідентифікатор копії книги</value>
   </data>
-  <data name="PAYMENT_CREDENTIALS_NOT_FOUND" xml:space="preserve">
-    <value>Платіжні дані не знайдені</value>
+  <data name="INVALID_BOOK_ID" xml:space="preserve">
+    <value>Недійсний ідентифікатор книги</value>
+  </data>
+  <data name="INVALID_BOOKING_ID" xml:space="preserve">
+    <value>Недійсний ідентифікатор запису оренди книги</value>
+  </data>
+  <data name="BOOKING_NOT_FOUND" xml:space="preserve">
+    <value>Запис оренди книги не знайдено</value>
+  </data>
+  <data name="INVALID_DEPARTMENT_ID" xml:space="preserve">
+    <value>Недійсний ідентифікатор відділу</value>
+  </data>
+  <data name="BOOK_NOT_FOUND" xml:space="preserve">
+    <value>Книга не знайдена</value>
+  </data>
+  <data name="INVALID_BOOK_REVIEW_ID" xml:space="preserve">
+    <value>Недійсний ідентифікатор відгуку про книгу</value>
+  </data>
+  <data name="BOOK_REVIEW_NOT_FOUND" xml:space="preserve">
+    <value>Відгук про книгу не знайдено</value>
+  </data>
+  <data name="DEPARTMENT_NOT_FOUND" xml:space="preserve">
+    <value>Відділ не знайдено</value>
+  </data>
+  <data name="INVALID_ENUM_ID" xml:space="preserve">
+    <value>Недійсний ідентифікатор перерахування</value>
+  </data>
+  <data name="INVALID_ENUM_ITEM_ID" xml:space="preserve">
+    <value>Недійсний ідентифікатор елементу перерахування</value>
+  </data>
+  <data name="ENUM_ITEM_NOT_FOUND" xml:space="preserve">
+    <value>Елемент перерахування не знайдено</value>
+  </data>
+  <data name="INVALID_RESERVATION_QUEUE_ID" xml:space="preserve">
+    <value>Недійсний ідентифікатор бронювання</value>
+  </data>
+  <data name="RESERVATION_QUEUE_NOT_FOUND" xml:space="preserve">
+    <value>Бронювання не знайдено</value>
+  </data>
+  <data name="INVALID_USERID" xml:space="preserve">
+    <value>Недійсний ідентифікатор користувача</value>
   </data>
   <data name="INVALID_REFRESH_TOKEN" xml:space="preserve">
-    <value>Невалідний рефреш токен</value>
-  </data>
-  <data name="INVALID_RESET_PASSWORD_TOKEN" xml:space="preserve">
-    <value>Невалідний токен для зміни паролю</value>
-  </data>
-  <data name="RESTAURANT_NOT_FOUND" xml:space="preserve">
-    <value>Ресторан не знайдено</value>
-  </data>
-  <data name="TRANSACTION_NOT_FOUND" xml:space="preserve">
-    <value>Транзакція не знайдена</value>
-  </data>
-  <data name="USER_NOT_FOUND" xml:space="preserve">
-    <value>Користувач не знайдений</value>
+    <value>Недійсний токен оновлення</value>
   </data>
   <data name="LOGIN_EXISTS" xml:space="preserve">
-    <value>Користувач з даним логіном вже існує</value>
+    <value>Логін вже використовується</value>
   </data>
-  <data name="USER_WITH_EMAIL_NOT_FOUND" xml:space="preserve">
-    <value>Користувач з даною електронною адресою не знайдений</value>
+  <data name="EMAIL_EXISTS" xml:space="preserve">
+    <value>Email вже використовується</value>
   </data>
-  <data name="BILLITEM_NOT_FOUND" xml:space="preserve">
-    <value>Одиниця рахунку не знайдена</value>
-  </data>
-  <data name="PURCHASE" xml:space="preserve">
-    <value>Купівля</value>
-  </data>
-  <data name="DECLINED" xml:space="preserve">
-    <value>Відхилено</value>
-  </data>
-  <data name="APPROVED" xml:space="preserve">
-    <value>Підтверджено</value>
-  </data>
-  <data name="SETTLEMENT" xml:space="preserve">
-    <value>Розщеплення</value>
-  </data>
-  <data name="BILL_NOT_FOUND" xml:space="preserve">
-    <value>Рахунок не знайдений</value>
-  </data>
-  <data name="TARIFITEM_NOT_FOUND" xml:space="preserve">
-    <value>Тарифна позиція не знайдена</value>
-  </data>
-  <data name="VERIFICATION" xml:space="preserve">
-    <value>Верифікація</value>
-  </data>
-  <data name="PAYMENT_SERVICE_NOT_FOUND" xml:space="preserve">
-    <value>Сервіс оплати не знайдений</value>
-  </data>
-  <data name="RESET_PASSWORD" xml:space="preserve">
-    <value>Зміна паролю</value>
-  </data>
-  <data name="RESET_PASSWORD_MESSAGE" xml:space="preserve">
-    <value>Для зміни паролю перейдіть за посиланням</value>
-  </data>
-  <data name="EMPTY_FILE" xml:space="preserve">
-    <value>Пустий файл</value>
-  </data>
-  <data name="UNKNOWN" xml:space="preserve">
-    <value>Невизначено</value>
-  </data>
-  <data name="CREATED" xml:space="preserve">
-    <value>Створено</value>
-  </data>
-  <data name="PROCESSING" xml:space="preserve">
-    <value>В обробці</value>
+  <data name="INVALID_RESET_PASSWORD_TOKEN" xml:space="preserve">
+    <value>Недійсний токен скидання паролю</value>
   </data>
 </root>

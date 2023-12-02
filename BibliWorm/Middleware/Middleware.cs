@@ -1,9 +1,12 @@
 ﻿using System.Globalization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using Common.Configs;
 using Common.IoC;
+using Common.Resources;
 using DAL.DbContexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Localization;
@@ -146,5 +149,53 @@ public static class Middleware
 
         return builder;
     }
+
+    #region Error handler
+
+    public static IApplicationBuilder UseErrorHandler(this IApplicationBuilder applicationBuilder)
+    {
+        return applicationBuilder.Use(HandleError);
+    }
+    
+    private static async Task HandleError(HttpContext httpContext, Func<Task> next)
+    {
+        try
+        {
+            await next();
+        }
+        catch (Exception ex)
+        {
+            string message;
+            object data;
+
+            switch (ex)
+            {
+                case UnauthorizedAccessException _:
+                    httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    message = Resources.Get(ex.Message);
+                    data = ex.Data;
+                    break;
+                default:
+                    httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+                    message = Resources.Get(ex.Message);
+                    data = ex.ToString();
+                    break;
+            }
+
+            var error = new
+            {
+                Message = message,
+                Error = data
+            };
+
+            await httpContext.Response.WriteAsync(JsonSerializer.Serialize(error, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            }));
+        }
+    }
+
+    #endregion
 
 }

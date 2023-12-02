@@ -16,7 +16,7 @@ if (app.Environment.IsDevelopment())
 }
 
 var localizeOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
-app.UseRequestLocalization(localizeOptions.Value);
+app.UseRequestLocalization(localizeOptions!.Value);
 
 app.UseErrorHandler();
 

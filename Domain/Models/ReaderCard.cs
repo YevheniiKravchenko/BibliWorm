@@ -6,36 +6,37 @@ namespace Domain.Models
 {
     public class ReaderCard
     {
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         public int UserId { get; set; }
 
-        [Required]
-        [MinLength(ValidationConstant.NameMinLength)]
-        [MaxLength(ValidationConstant.NameMaxLength)]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
+        [MinLength(ValidationConstant.NameMinLength, ErrorMessage = "MIN_LENGTH_ERROR")]
+        [MaxLength(ValidationConstant.NameMaxLength, ErrorMessage = "MAX_LENGTH_ERROR")]
         public string FirstName { get; set; }
 
-        [Required]
-        [MinLength(ValidationConstant.NameMinLength)]
-        [MaxLength(ValidationConstant.NameMaxLength)] 
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
+        [MinLength(ValidationConstant.NameMinLength, ErrorMessage = "MIN_LENGTH_ERROR")]
+        [MaxLength(ValidationConstant.NameMaxLength, ErrorMessage = "MAX_LENGTH_ERROR")] 
         public string LastName { get; set; }
 
         public byte[] ProfilePicture { get; set; }
 
-        [Required]
-        [MinLength(ValidationConstant.AddressMinLength)]
-        [MaxLength(ValidationConstant.AddressMaxLength)]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
+        [MinLength(ValidationConstant.AddressMinLength, ErrorMessage = "MIN_LENGTH_ERROR")]
+        [MaxLength(ValidationConstant.AddressMaxLength, ErrorMessage = "MAX_LENGTH_ERROR")]
         public string Address { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         [RegularExpression(RegularExpressions.PhoneNumber,
-            ErrorMessage = "Invalid phone number")]
+            ErrorMessage = "INVALID_PHONE_NUMBER_ERROR")]
         public string PhoneNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         public DateTime BirthDate { get; set; }
 
-        [Required]
-        [MinLength(ValidationConstant.EmailMinLength)]
-        [EmailAddress]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
+        [MinLength(ValidationConstant.EmailMinLength, ErrorMessage = "MIN_LENGTH_ERROR")]
+        [EmailAddress(ErrorMessage = "INVALID_EMAIL_ADDRESS_ERROR")]
         public string Email { get; set; }
 
         #region Relations

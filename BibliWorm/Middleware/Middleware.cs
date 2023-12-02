@@ -117,6 +117,13 @@ public static class Middleware
                 options.SupportedUICultures = supportedCultures;
             });
 
+        builder.Services.AddMvc()
+            .AddDataAnnotationsLocalization(options =>
+            {
+                options.DataAnnotationLocalizerProvider = (type, factory) =>
+                    factory.Create(typeof(Resources));
+            });
+
         #endregion
 
         builder.Services.AddControllers();

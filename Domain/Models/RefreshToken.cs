@@ -5,12 +5,13 @@ namespace Domain.Models
 {
     public class RefreshToken
     {
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         public Guid RefreshTokenId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         public int UserId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         public DateTime ExpiresOnUtc { get; set; }
 
         #region Relations

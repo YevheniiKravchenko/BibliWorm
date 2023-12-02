@@ -1,14 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Common.Constants;
+using System.ComponentModel.DataAnnotations;
 
 namespace BLL.Infrastructure.Models.EnumItem;
 public class EnumItemModel
 {
-    [Required]
+    [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
     public int EnumItemId { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
+    [MaxLength(ValidationConstant.EnumItemValueMaxLength, ErrorMessage = "MAX_LENGTH_ERROR")]
     public string Value { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
     public int EnumId { get; set; }
 }

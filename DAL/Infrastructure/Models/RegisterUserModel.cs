@@ -5,50 +5,51 @@ namespace DAL.Infrastructure.Models
 {
     public class RegisterUserModel
     {
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         public int UserId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         [MinLength(ValidationConstant.LoginMinLength)]
         [MaxLength(ValidationConstant.LoginMaxLength)]
         [RegularExpression(RegularExpressions.Login,
-            ErrorMessage = "Login may contain only latin characters, numbers, hyphens and underscores")]
+            ErrorMessage = "INVALID_LOGIN_ERROR")]
         public string Login { get; set; }
 
         [Required]
         [MinLength(ValidationConstant.PasswordMinLength)]
         [MaxLength(ValidationConstant.PasswordMaxLength)]
         [RegularExpression(RegularExpressions.Password,
-            ErrorMessage = "Password may contain only latin characters, numbers and special characters")]
+            ErrorMessage = "INVALID_PASSWORD_ERROR")]
         public string Password { get; set; }
 
-        [Required]
-        [MinLength(ValidationConstant.NameMinLength)]
-        [MaxLength(ValidationConstant.NameMaxLength)]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
+        [MinLength(ValidationConstant.NameMinLength, ErrorMessage = "MIN_LENGTH_ERROR")]
+        [MaxLength(ValidationConstant.NameMaxLength, ErrorMessage = "MAX_LENGTH_ERROR")]
         public string FirstName { get; set; }
 
-        [Required]
-        [MinLength(ValidationConstant.NameMinLength)]
-        [MaxLength(ValidationConstant.NameMaxLength)]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
+        [MinLength(ValidationConstant.NameMinLength, ErrorMessage = "MIN_LENGTH_ERROR")]
+        [MaxLength(ValidationConstant.NameMaxLength, ErrorMessage = "MAX_LENGTH_ERROR")]
         public string LastName { get; set; }
 
         public byte[] ProfilePicture { get; set; }
 
-        [Required]
-        [MinLength(ValidationConstant.AddressMinLength)]
-        [MaxLength(ValidationConstant.AddressMaxLength)]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
+        [MinLength(ValidationConstant.AddressMinLength, ErrorMessage = "MIN_LENGTH_ERROR")]
+        [MaxLength(ValidationConstant.AddressMaxLength, ErrorMessage = "MAX_LENGTH_ERROR")]
         public string Address { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         [RegularExpression(RegularExpressions.PhoneNumber,
-            ErrorMessage = "Invalid phone number")]
+                    ErrorMessage = "INVALID_PHONE_NUMBER_ERROR")]
         public string PhoneNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         public DateTime BirthDate { get; set; }
 
-        [Required]
-        [EmailAddress]
-        [MinLength(ValidationConstant.EmailMinLength)]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
+        [MinLength(ValidationConstant.EmailMinLength, ErrorMessage = "MIN_LENGTH_ERROR")]
+        [EmailAddress(ErrorMessage = "INVALID_EMAIL_ADDRESS_ERROR")]
         public string Email { get; set; }
     }
 }

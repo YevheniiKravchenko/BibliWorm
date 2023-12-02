@@ -5,15 +5,16 @@ namespace Domain.Models
 {
     public class ResetPasswordToken
     {
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         public Guid ResetPasswordTokenId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         public string Token { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         public DateTime ExpiresOnUtc { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         public int UserId { get; set; }
 
         #region Relations

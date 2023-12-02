@@ -4,9 +4,10 @@ using System.Text.Json.Serialization;
 namespace Domain.Models;
 public class Enum
 {
+    [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
     public int EnumID { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
     public string Code { get; set; }
 
     #region Relations

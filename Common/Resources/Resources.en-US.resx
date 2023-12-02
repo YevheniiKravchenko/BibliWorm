@@ -157,4 +157,34 @@
   <data name="INVALID_RESET_PASSWORD_TOKEN" xml:space="preserve">
     <value>Invalid reset password token</value>
   </data>
+  <data name="FIELD_IS_REQUIRED" xml:space="preserve">
+    <value>The field is required</value>
+  </data>
+  <data name="MIN_LENGTH_ERROR" xml:space="preserve">
+    <value>The filed length must be at least {1} character(s)</value>
+  </data>
+  <data name="MAX_LENGTH_ERROR" xml:space="preserve">
+    <value>The field length cannot exceed {1} character(s)</value>
+  </data>
+  <data name="RANGE_ERROR_BETWEEN" xml:space="preserve">
+    <value>The value must be between {1} and {2}</value>
+  </data>
+  <data name="RANGE_ERROR_FROM" xml:space="preserve">
+    <value>The value must be at least {1}</value>
+  </data>
+  <data name="INVALID_LOGIN_ERROR" xml:space="preserve">
+    <value>Login may contain only latin characters, numbers, hyphens and underscores</value>
+  </data>
+  <data name="INVALID_PASSWORD_ERROR" xml:space="preserve">
+    <value>Password may contain only latin characters, numbers and special characters</value>
+  </data>
+  <data name="INVALID_PHONE_NUMBER_ERROR" xml:space="preserve">
+    <value>Invalid phone number</value>
+  </data>
+  <data name="INVALID_EMAIL_ADDRESS_ERROR" xml:space="preserve">
+    <value>Invalid email address</value>
+  </data>
+  <data name="PASSWORD_MATCH_ERROR" xml:space="preserve">
+    <value>Passwords must match</value>
+  </data>
 </root>

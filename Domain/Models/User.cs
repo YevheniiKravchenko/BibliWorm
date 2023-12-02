@@ -7,24 +7,26 @@ namespace Domain.Models
 {
     public class User
     {
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         public int UserId { get; set; }
 
-        [Required]
-        [MinLength(ValidationConstant.LoginMinLength)]
-        [MaxLength(ValidationConstant.LoginMaxLength)]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
+        [MinLength(ValidationConstant.LoginMinLength, ErrorMessage = "MIN_LENGTH_ERROR")]
+        [MaxLength(ValidationConstant.LoginMaxLength, ErrorMessage = "MAX_LENGTH_ERROR")]
         [RegularExpression(RegularExpressions.Login,
-            ErrorMessage = "Login may contain only latin characters, numbers, hyphens and underscores")]
+            ErrorMessage = "INVALID_LOGIN_ERROR")]
         public string Login { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         public string PasswordHash { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         public string PasswordSalt { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         public DateTime RegistrationDate { get; set; }
 
+        [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
         public Role Role { get; set; }
 
         public bool IsBlocked { get; set; }

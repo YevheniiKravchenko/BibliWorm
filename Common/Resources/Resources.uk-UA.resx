@@ -157,4 +157,34 @@
   <data name="INVALID_RESET_PASSWORD_TOKEN" xml:space="preserve">
     <value>Недійсний токен скидання паролю</value>
   </data>
+  <data name="FIELD_IS_REQUIRED" xml:space="preserve">
+    <value>Поле є обов'язковим</value>
+  </data>
+  <data name="MIN_LENGTH_ERROR" xml:space="preserve">
+    <value>Довжина поля повинна бути не менше {1} символу(ів)</value>
+  </data>
+  <data name="MAX_LENGTH_ERROR" xml:space="preserve">
+    <value>Довжина поля повинна бути не більше {1} символу(ів)</value>
+  </data>
+  <data name="RANGE_ERROR_BETWEEN" xml:space="preserve">
+    <value>Значення повинно бути між {1} та {2}</value>
+  </data>
+  <data name="RANGE_ERROR_FROM" xml:space="preserve">
+    <value>Значення повинно бути хоча б {1}</value>
+  </data>
+  <data name="INVALID_LOGIN_ERROR" xml:space="preserve">
+    <value>Логін може містити тільки латинські літери, цифри, дефіси та нижнє підкреслення</value>
+  </data>
+  <data name="INVALID_PASSWORD_ERROR" xml:space="preserve">
+    <value>Пароль може містити лише латинські літери, цифри та спеціальні символи</value>
+  </data>
+  <data name="INVALID_PHONE_NUMBER_ERROR" xml:space="preserve">
+    <value>Недійсний номер телефону</value>
+  </data>
+  <data name="INVALID_EMAIL_ADDRESS_ERROR" xml:space="preserve">
+    <value>Недійсна email адреса</value>
+  </data>
+  <data name="PASSWORD_MATCH_ERROR" xml:space="preserve">
+    <value>Паролі повинні співпадати</value>
+  </data>
 </root>

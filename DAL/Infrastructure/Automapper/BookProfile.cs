@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Domain.Models;
-using System.Security.Cryptography;
 
 namespace DAL.Infrastructure.Automapper;
 public class BookProfile : Profile
@@ -8,6 +7,18 @@ public class BookProfile : Profile
     public BookProfile()
     {
         CreateMap<Book, Book>()
+            .ForMember(dst => dst.BookCopies,
+                opt => opt.Ignore())
+            .ForMember(dst => dst.BookReviews,
+                opt => opt.Ignore())
+            .ForMember(dst => dst.Genres,
+                opt => opt.Ignore())
+            .ForMember(dst => dst.Department,
+                opt => opt.Ignore())
+            .ForMember(dst => dst.ReservationQueues,
+                opt => opt.Ignore())
+            .ForMember(dst => dst.Users,
+                opt => opt.Ignore())
             .ForMember(dst => dst.CoverImage,
                 opt => opt.Ignore());
 

@@ -23,5 +23,9 @@ public class BookModel
 
     public int? DepartmentId { get; set; }
 
+    public List<int> BookGenres { get; set; }
+
+    public Dictionary<int, string> Genres { get; set; }
+
     public Dictionary<int, string> Departments { get; set; }
 }

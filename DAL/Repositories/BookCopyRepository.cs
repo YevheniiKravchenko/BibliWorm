@@ -55,6 +55,17 @@ public class BookCopyRepository : IBookCopyRepository
         return bookCopy;
     }
 
+    public void SetBookCopiesAsUnavailable(List<Guid> bookCopiesIds)
+    {
+        var bookCopies = _bookCopies.Where(bc => bookCopiesIds.Contains(bc.BookCopyId))
+            .ToList();
+        foreach (var bookCopy in bookCopies)
+            bookCopy.IsAvailable = false;
+
+        _bookCopies.UpdateRange(bookCopies);
+        _dbContext.Commit();
+    }
+
     public void Update(BookCopy updatedBookCopy)
     {
         var bookCopy = _bookCopies.FirstOrDefault(bc => bc.BookCopyId == updatedBookCopy.BookCopyId)

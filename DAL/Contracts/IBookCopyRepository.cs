@@ -12,4 +12,6 @@ public interface IBookCopyRepository
     BookCopy GetById(Guid bookCopyId);
 
     void Update(BookCopy updatedBookCopy);
+
+    void SetBookCopiesAsUnavailable(List<Guid> bookCopiesIds);
 }

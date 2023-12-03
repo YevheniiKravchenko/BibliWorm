@@ -21,7 +21,7 @@ public class BookReviewService : IBookReviewService
     public void AddBookReview(CreateUpdateBookReviewModel bookReviewModel)
     {
         var bookReview = _mapper.Value.Map<BookReview>(bookReviewModel);
-
+        
         _unitOfWork.BookReviews.Value.Create(bookReview);
     }
 

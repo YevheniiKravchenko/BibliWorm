@@ -48,14 +48,6 @@ public class BookingRepository : IBookingRepository
         _dbContext.Commit();
     }
 
-    //public void Delete(List<Guid> bookingsIds)
-    //{
-    //    var bookingsToDelete = GetAll().Where(b => bookingsIds.Contains(b.BookingId));
-
-    //    _bookings.RemoveRange(bookingsToDelete);
-    //    _dbContext.Commit();
-    //}
-
     public IQueryable<Booking> GetAll()
     {
         return _bookings.AsQueryable();

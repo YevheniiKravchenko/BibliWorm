@@ -76,7 +76,7 @@ namespace WebAPI.Controllers
             return Ok(users);
         }
 
-        [HttpGet]
+        [HttpGet("get")]
         [Authorize]
         public ActionResult GetUserProfileById([FromQuery] int userId)
         {
@@ -113,6 +113,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("reserve-book")]
+        [Authorize]
         public ActionResult ReserveBook([FromBody] ReserveBookModel model)
         {
             _userService.Value.ReserveBook(model.UserId, model.BookId);

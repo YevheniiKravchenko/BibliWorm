@@ -1,4 +1,6 @@
 ﻿using DAL.Infrastructure.Models;
+using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Infrastructure.Extensions
 {
@@ -12,6 +14,15 @@ namespace DAL.Infrastructure.Extensions
             return (IOrderedQueryable<T>)query
                 .Skip((model.PageNumber - 1) * model.PageSize)
                 .Take(model.PageSize);
+        }
+
+        public static IQueryable<T> GetTopTenMostPopularBooks<T>(this IQueryable<T> books) 
+            where T : Book
+        {
+            return books.Include(b => b.Department)
+                .OrderByDescending(b => b.BookCopies
+                    .SelectMany(bc => bc.Bookings).Count())
+                .Take(10);
         }
     }
 }

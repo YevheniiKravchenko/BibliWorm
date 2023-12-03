@@ -163,7 +163,7 @@ public class BookController : ControllerBase
     [Authorize]
     public ActionResult GetRandomBook()
     {
-        var randomBook = _bookService.GetRanomBook();
+        var randomBook = _bookService.GetRandomBook();
 
         return Ok(randomBook);
     }

@@ -187,4 +187,10 @@
   <data name="PASSWORD_MATCH_ERROR" xml:space="preserve">
     <value>Passwords must match</value>
   </data>
+  <data name="INVALID_LOGIN_OR_PASSWORD" xml:space="preserve">
+    <value>Invalid login or password</value>
+  </data>
+  <data name="NO_DATA" xml:space="preserve">
+    <value>Not enough data</value>
+  </data>
 </root>

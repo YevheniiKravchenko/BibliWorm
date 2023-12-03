@@ -214,8 +214,8 @@ namespace DAL.DbContexts
                 {
                     UserId = 1,
                     Login = "Admin",
-                    PasswordHash = "$2a$10$WkrWKFdubfRwcY4MjdFELui7Dh8r3ykAvDYOQPvQud0vPlxFHVen.", // password: admin231_rte
-                    PasswordSalt = "d!W2~4~zI{wq:l<p",
+                    PasswordHash = "$2a$10$Usqo0Y9zHoU0Wpt5jZl2B.DKMaKZ7cT/tDDLTv9vwsj7PlaWs40Ai", // password: 12345
+                    PasswordSalt = "G+94*Wzt@_e!GOFQ",
                     RegistrationDate = DateTime.UtcNow,
                     Role = Role.Admin
                 }

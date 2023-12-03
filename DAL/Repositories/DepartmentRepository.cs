@@ -66,8 +66,10 @@ public class DepartmentRepository : IDepartmentRepository
 
     public Department GetById(int departmentId)
     {
-        var department = _departments.FirstOrDefault(d => d.DepartmentId == departmentId)
-            ?? throw new ArgumentException("DEPARTMENT_NOT_FOUND");
+        var department = _departments
+            .Include(d => d.DepartmentStatistics)
+            .FirstOrDefault(d => d.DepartmentId == departmentId)
+                ?? throw new ArgumentException("DEPARTMENT_NOT_FOUND");
 
         return department;
     }

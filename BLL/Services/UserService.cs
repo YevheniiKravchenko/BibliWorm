@@ -8,6 +8,7 @@ using Common.Enums;
 using DAL.Contracts;
 using DAL.Infrastructure.Models;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BLL.Services
 {
@@ -136,19 +137,24 @@ namespace BLL.Services
             var userStatistics = new UserStatisticsModel();
             var bookings = _unitOfWork.Value.Bookings.Value
                 .GetAll()
+                .Include(b => b.BookCopy)
+                .ThenInclude(bc => bc.Book)
                 .Where(b => b.UserId == userId)
                 .ToList();
 
             userStatistics.UserId = userId;
+            userStatistics.FavouriteGenre = GetUserFavouriteGenre(userId).Value;
+
             userStatistics.TotalBooksRead = bookings
                 .Where(b => b.ReturnedOnUtc != null)
                 .Count();
-            userStatistics.FavouriteGenre = GetUserFavouriteGenre(userId).Value;
+
             userStatistics.BiggestBookRead = bookings
                 .Select(b => b.BookCopy.Book)
                 .OrderByDescending(b => b.PagesAmount)
-                .FirstOrDefault()?
-                .Title ?? "";
+                .FirstOrDefault()?.Title 
+                    ?? "";
+
             userStatistics.TotalPagesRead = bookings
                 .Where(b => b.ReturnedOnUtc != null)
                 .Select(b => b.BookCopy.Book)
@@ -157,7 +163,8 @@ namespace BLL.Services
             userStatistics.BookReadFastest = bookings
                 .Where(b => b.ReturnedOnUtc != null)
                 .OrderByDescending(b => b.ReturnedOnUtc - b.BookedOnUtc)
-                .FirstOrDefault()?.BookCopy?.Book?.Title ?? "";
+                .FirstOrDefault()?.BookCopy?.Book?.Title 
+                    ?? "";
 
             userStatistics.CurrentlyReadingBooksAmount = bookings
                 .Where(b => b.ReturnedOnUtc == null)

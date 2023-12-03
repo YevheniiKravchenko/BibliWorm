@@ -8,6 +8,8 @@ public class BookProfile : Profile
 {
     public BookProfile()
     {
+        #region BookReview
+
         CreateMap<BookReview, CreateUpdateBookReviewModel>()
             .ReverseMap();
 
@@ -15,9 +17,19 @@ public class BookProfile : Profile
             .ForMember(dst => dst.AuthorName,
                 opt => opt.MapFrom(src => src.User.ReaderCard.LastName + " " + src.User.ReaderCard.FirstName));
 
-        CreateMap<Book, BookModel>();
+        #endregion
 
-        CreateMap<CreateUpdateBookModel, BookModel>();
+        #region Book
+
+        CreateMap<Book, BookModel>()
+            .ForMember(dst => dst.BookGenres,
+                opt => opt.MapFrom(src => src.Genres.Select(g => g.EnumItemId)))
+            .ForMember(dst => dst.Genres,
+                opt => opt.Ignore());
+
+        CreateMap<CreateUpdateBookModel, Book>()
+            .ForMember(dst => dst.Genres,
+                opt => opt.Ignore());
 
         CreateMap<Book, BookListItemModel>()
             .ForMember
@@ -35,11 +47,19 @@ public class BookProfile : Profile
                     : src.Department.Name)
             );
 
+        #endregion
+
+        #region BookCopy
+
         CreateMap<BookCopy, BookCopyModel>();
 
         CreateMap<CreateUpdateBookCopyModel, BookCopy>();
 
         CreateMap<BookCopy, BookCopyListItemModel>();
+
+        #endregion
+
+        #region Booking
 
         CreateMap<Booking, BookingListItemModel>()
             .ForMember
@@ -67,5 +87,7 @@ public class BookProfile : Profile
                 dst => dst.IsReturned,
                 opt => opt.MapFrom(src => src.ReturnedOnUtc != null)
             );
+
+        #endregion
     }
 }

@@ -7,6 +7,8 @@ public class DepartmentProfile : Profile
 {
     public DepartmentProfile()
     {
+        #region Department
+
         CreateMap<Department, DepartmentModel>()
             .ForMember
             (
@@ -19,8 +21,14 @@ public class DepartmentProfile : Profile
                 )
             );
 
-        CreateMap<CreateUpdateDepartmentModel, DepartmentModel>();
+        CreateMap<CreateUpdateDepartmentModel, Department>();
+
+        #endregion
+
+        #region DepartmentStatistics
 
         CreateMap<CreateDepartmentStatisticsModel, DepartmentStatistics>();
+
+        #endregion
     }
 }

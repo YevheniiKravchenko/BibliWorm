@@ -36,4 +36,6 @@ public class CreateUpdateBookModel
     public string KeyWords { get; set; }
 
     public int? DepartmentId { get; set; }
+
+    public List<int> Genres { get; set; }
 }

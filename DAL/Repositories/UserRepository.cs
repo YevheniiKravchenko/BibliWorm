@@ -80,6 +80,8 @@ namespace DAL.Repositories
         {
             var user = _users
                 .Include(u => u.ReaderCard)
+                .Include(u => u.FavouriteBooks)
+                .ThenInclude(fb => fb.Department)
                 .FirstOrDefault(u => u.UserId == userId)
                     ?? throw new ArgumentException("INVALID_USERID");
 
@@ -107,7 +109,7 @@ namespace DAL.Repositories
             if (user is null
                 || !HashHelper.VerifyPassword(password, user.PasswordSalt, user.PasswordHash))
             {
-                throw new UnauthorizedAccessException();
+                throw new UnauthorizedAccessException("INVALID_LOGIN_OR_PASSWORD");
             }
 
             return user;
@@ -135,6 +137,7 @@ namespace DAL.Repositories
                 user.PasswordHash = passwordHash;
                 user.RegistrationDate = DateTime.UtcNow;
                 user.ReaderCard = readerCard;
+                user.Role = Role.Member;
 
                 _users.Add(user);
                 _dbContext.Commit();
@@ -155,10 +158,10 @@ namespace DAL.Repositories
             try
             {
                 var user = _users.Include(u => u.ResetPasswordTokens)
-                .FirstOrDefault(u => u.ResetPasswordTokens
-                    .Any(t => t.Token == token
-                        && t.ExpiresOnUtc >= DateTime.UtcNow))
-                ?? throw new ArgumentException("INVALID_RESET_PASSWORD_TOKEN");
+                    .FirstOrDefault(u => u.ResetPasswordTokens
+                        .Any(t => t.Token == token
+                            && t.ExpiresOnUtc >= DateTime.UtcNow))
+                    ?? throw new ArgumentException("INVALID_RESET_PASSWORD_TOKEN");
 
                 var (salt, passwordHash) = HashHelper.GenerateNewPasswordHash(newPassword);
                 user.PasswordSalt = salt;

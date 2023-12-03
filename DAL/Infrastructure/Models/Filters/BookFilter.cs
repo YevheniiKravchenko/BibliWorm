@@ -4,19 +4,19 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Infrastructure.Models.Filters;
 public class BookFilter : BaseFilter<Book>
 {
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
-    public string Author { get; set; }
+    public string? Author { get; set; }
 
-    public string ISBN { get; set; }
+    public string? ISBN { get; set; }
 
     public DateTime? PublishedAfter { get; set; }
 
     public DateTime? PublishedBefore { get; set; }
 
-    public string KeyWords { get; set; }
+    public string? KeyWords { get; set; }
 
-    public List<string> Genres { get; set; }
+    public List<int?> Genres { get; set; }
 
     public int? DepartmentId { get; set; }
 
@@ -54,11 +54,12 @@ public class BookFilter : BaseFilter<Book>
                 && b.DepartmentId.Value == DepartmentId.Value);
         }
 
-        if (Genres.Count > 0)
+        if (Genres.Count > 0 && Genres[0] != null)
             query = query.Where(b => b.Genres
-                .Select(g => g.Value)
+                .Select(g => g.EnumItemId)
                 .Where(v => Genres.Contains(v))
-                .Any());
+                .Any()
+            );
 
         return query;
     }

@@ -32,7 +32,7 @@ public interface IBookService
 
     IEnumerable<BookCopyListItemModel> GetBookCopies(Guid bookId);
 
-    BookModel GetRanomBook();
+    BookModel GetRandomBook();
 
     IEnumerable<BookListItemModel> GetRecomendationsForUser(int userId);
 }

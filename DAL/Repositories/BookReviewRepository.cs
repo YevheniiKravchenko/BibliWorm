@@ -11,8 +11,6 @@ public class BookReviewRepository : IBookReviewRepository
     private readonly Lazy<IMapper> _mapper;
     
     private readonly DbSet<BookReview> _bookReviews;
-    private readonly DbSet<Book> _books;
-    private readonly DbSet<Department> _departments;
 
     public BookReviewRepository(DbContextBase dbContext, Lazy<IMapper> mapper)
     {
@@ -20,8 +18,6 @@ public class BookReviewRepository : IBookReviewRepository
         _mapper = mapper;
 
         _bookReviews = dbContext.BookReviews;
-        _books = dbContext.Books;
-        _departments = dbContext.Departments;
     }
 
     public void Create(BookReview newBookReview)
@@ -41,13 +37,18 @@ public class BookReviewRepository : IBookReviewRepository
 
     public IQueryable<BookReview> GetAll()
     {
-        return _bookReviews.AsQueryable();
+        return _bookReviews.AsQueryable()
+            .Include(br => br.User)
+            .ThenInclude(u => u.ReaderCard);
     }
 
     public BookReview GetById(Guid reviewId)
     {
-        var bookReview = _bookReviews.FirstOrDefault(br => br.BookReviewId == reviewId)
-            ?? throw new ArgumentException("BOOK_REVIEW_NOT_FOUND");
+        var bookReview = _bookReviews
+            .Include(br => br.User)
+            .ThenInclude(u => u.ReaderCard)
+            .FirstOrDefault(br => br.BookReviewId == reviewId)
+                ?? throw new ArgumentException("BOOK_REVIEW_NOT_FOUND");
 
         return bookReview;
     }

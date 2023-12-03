@@ -1,9 +1,11 @@
-﻿namespace BLL.Infrastructure.Models
+﻿using Common.Enums;
+
+namespace BLL.Infrastructure.Models
 {
     public class UserModel
     {
         public int UserId { get; set; }
 
-        public bool IsAdmin { get; set; }
+        public Role Role { get; set; }
     }
 }

@@ -9,8 +9,6 @@ public interface IBookingRepository
 
     void Delete(Guid bookingId);
 
-    //void Delete(List<Guid> bookingsIds);
-
     IQueryable<Booking> GetAll();
 
     Booking GetById(Guid bookingId);

@@ -53,6 +53,7 @@ public class BookRepository : IBookRepository
     public IQueryable<Book> GetAll(BookFilter filter)
     {
         var books = filter.Filter(_books)
+            .Include(b => b.Department)
             .OrderBy(x => x.Title)
             .GetPage(filter.PagingModel);
 
@@ -61,16 +62,22 @@ public class BookRepository : IBookRepository
 
     public Book GetById(Guid bookId)
     {
-        var book = _books.FirstOrDefault(b => b.BookId == bookId)
-            ?? throw new ArgumentException("BOOK_NOT_FOUND");
+        var book = _books
+            .Include(b => b.Department)
+            .Include(b => b.Genres)
+            .Include(b => b.Users)
+            .FirstOrDefault(b => b.BookId == bookId)
+                ?? throw new ArgumentException("BOOK_NOT_FOUND");
 
         return book;
     }
 
     public void Update(Book updatedBook)
     {
-        var book = _books.FirstOrDefault(b => b.BookId == updatedBook.BookId)
-            ?? throw new ArgumentException("INVALID_BOOK_ID");
+        var book = _books
+            .Include(b => b.Genres)
+            .FirstOrDefault(b => b.BookId == updatedBook.BookId)
+                ?? throw new ArgumentException("INVALID_BOOK_ID");
 
         if (updatedBook.DepartmentId != null
             && book.DepartmentId != updatedBook.DepartmentId)
@@ -81,6 +88,8 @@ public class BookRepository : IBookRepository
         }
 
         book = _mapper.Value.Map(updatedBook, book);
+        book.Genres.Clear();
+        book.Genres = updatedBook.Genres;
 
         _dbContext.Commit();
     }

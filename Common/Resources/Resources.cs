@@ -11,7 +11,14 @@ public static class Resources
 
     public static string Get(string key)
     {
-        var resourceValue = ResourceManager.Value.GetString(key);
-        return resourceValue ?? key;
+        try
+        {
+            var resourceValue = ResourceManager.Value.GetString(key);
+            return resourceValue ?? key;
+        }
+        catch
+        {
+            return key;
+        }
     }
 }

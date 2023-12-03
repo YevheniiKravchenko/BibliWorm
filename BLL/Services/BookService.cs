@@ -2,8 +2,10 @@
 using BLL.Contracts;
 using BLL.Infrastructure.Models.Book;
 using DAL.Contracts;
+using DAL.Infrastructure.Extensions;
 using DAL.Infrastructure.Models.Filters;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BLL.Services;
 public class BookService : IBookService
@@ -24,7 +26,7 @@ public class BookService : IBookService
 
     public void AddBook(CreateUpdateBookModel bookModel)
     {
-        var book = _mapper.Value.Map<Book>(bookModel);
+        var book = MapCreateUpdateBookModelToBook(bookModel);
 
         _unitOfWork.Books.Value.Create(book);
     }
@@ -68,8 +70,8 @@ public class BookService : IBookService
             .ToList();
 
         _unitOfWork.ReservationQueues.Value.Delete(reservationQueuesIds);
-
         _unitOfWork.Bookings.Value.Create(bookings);
+        _unitOfWork.BookCopies.Value.SetBookCopiesAsUnavailable(bookCopiesIds);
     }
 
     public void DeleteBook(Guid bookId)
@@ -86,6 +88,9 @@ public class BookService : IBookService
     {
         var book = _unitOfWork.Books.Value.GetById(bookId);
         var bookModel = _mapper.Value.Map<BookModel>(book);
+       
+        bookModel.Departments = GetDepartmentOptions();
+        bookModel.Genres = GetGenreOptions();
 
         return bookModel;
     }
@@ -110,9 +115,7 @@ public class BookService : IBookService
     public IEnumerable<BookListItemModel> GetMostPopularBooks()
     {
         var mostPopularBooks = _unitOfWork.Books.Value.GetAll()
-            .OrderByDescending(b => b.BookCopies
-                .Sum(bc => bc.Bookings.Count()))
-            .Take(10);
+            .GetTopTenMostPopularBooks();
         var mostPopulatBooksModels = _mapper.Value.Map<List<BookListItemModel>>(mostPopularBooks);
 
         return mostPopulatBooksModels;
@@ -124,10 +127,7 @@ public class BookService : IBookService
             .Where(b => b.Genres
                 .Select(g => g.EnumItemId)
                 .Contains(genreId));
-        var mostPopularBooksInGenre = booksInGenre
-            .OrderByDescending(b => b.BookCopies
-                .Sum(bc => bc.Bookings.Count()))
-            .Take(10);
+        var mostPopularBooksInGenre = booksInGenre.GetTopTenMostPopularBooks();
         var mostPopulatBooksInGenreModels = _mapper.Value.Map<List<BookListItemModel>>(mostPopularBooksInGenre);
 
         return mostPopulatBooksInGenreModels;
@@ -136,18 +136,22 @@ public class BookService : IBookService
     public void ReturnTheBookCopies(List<Guid> bookingsIds)
     {
         var bookings = _unitOfWork.Bookings.Value.GetAll()
+            .Include(b => b.BookCopy)
             .Where(b => bookingsIds.Contains(b.BookingId))
             .ToList();
 
         foreach (var booking in bookings)
+        {
             booking.ReturnedOnUtc = DateTime.UtcNow;
+            booking.BookCopy.IsAvailable = true;
+        }
 
         _unitOfWork.Bookings.Value.Update(bookings);
     }
 
     public void UpdateBook(CreateUpdateBookModel bookModel)
     {
-        var book = _mapper.Value.Map<Book>(bookModel);
+        var book = MapCreateUpdateBookModelToBook(bookModel);
 
         _unitOfWork.Books.Value.Update(book);
     }
@@ -159,7 +163,7 @@ public class BookService : IBookService
         _unitOfWork.BookCopies.Value.Update(bookCopy);
     }
 
-    public BookModel GetRanomBook()
+    public BookModel GetRandomBook()
     {
         var totalBooks = _unitOfWork.Books.Value.GetAll().Count();
         var randomBookNumber = Random.Shared.Next(1, totalBooks);
@@ -188,4 +192,52 @@ public class BookService : IBookService
 
         return recomendedBooks;
     }
+
+    #region Helpers
+
+    private Book MapCreateUpdateBookModelToBook(CreateUpdateBookModel bookModel)
+    {
+        var book = _mapper.Value.Map<Book>(bookModel);
+        var bookGenres = _unitOfWork.EnumItems.Value.GetAll()
+            .Where(ei => bookModel.Genres.Contains(ei.EnumItemId))
+            .ToList();
+
+        book.Genres = bookGenres;
+
+        return book;
+    }
+
+    private Dictionary<int, string> GetDepartmentOptions()
+    {
+        var departments = _unitOfWork.Departments.Value.GetAll()
+           .Select(d => new
+           {
+               d.DepartmentId,
+               d.Name
+           });
+        var departmentDictionary = new Dictionary<int, string>();
+        foreach (var department in departments)
+            departmentDictionary.Add(department.DepartmentId, department.Name);
+
+        return departmentDictionary;
+    }
+
+    private Dictionary<int, string> GetGenreOptions()
+    {
+        var genres = _unitOfWork.EnumItems.Value.GetAll()
+            .Include(ei => ei.Enum)
+            .Where(ei => ei.Enum.Code == "Genre")
+            .Select(ei => new
+            {
+                ei.EnumItemId,
+                ei.Value
+            });
+        var genreDictionary = new Dictionary<int, string>();
+        foreach (var genre in genres)
+            genreDictionary.Add(genre.EnumItemId, genre.Value);
+
+        return genreDictionary;
+    }
+
+    #endregion
 }

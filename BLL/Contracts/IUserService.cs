@@ -3,6 +3,7 @@ using BLL.Infrastructure.Models.Book;
 using BLL.Infrastructure.Models.EnumItem;
 using Common.Enums;
 using DAL.Infrastructure.Models;
+using DAL.Infrastructure.Models.Filters;
 
 namespace BLL.Contracts
 {
@@ -10,7 +11,7 @@ namespace BLL.Contracts
     {
         UserProfileModel GetUserProfileById(int userId);
 
-        IEnumerable<UserProfileModel> GetAllUsers(PagingModel pagingModel);
+        IEnumerable<UserProfileModel> GetAllUsers(UserFilter filter);
 
         void UpdateReaderCard(UserProfileInfo model);
 

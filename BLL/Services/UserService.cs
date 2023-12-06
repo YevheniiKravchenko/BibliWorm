@@ -7,6 +7,7 @@ using Common.Configs;
 using Common.Enums;
 using DAL.Contracts;
 using DAL.Infrastructure.Models;
+using DAL.Infrastructure.Models.Filters;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,10 +37,10 @@ namespace BLL.Services
             );
         }
 
-        public IEnumerable<UserProfileModel> GetAllUsers(PagingModel pagingModel)
+        public IEnumerable<UserProfileModel> GetAllUsers(UserFilter filter)
         {
             var users = _unitOfWork.Value.Users.Value
-                .GetAll(pagingModel)
+                .GetAll(filter)
                 .ToList();
 
             var userProfiles = _mapper.Value.Map<List<UserProfileModel>>(users);

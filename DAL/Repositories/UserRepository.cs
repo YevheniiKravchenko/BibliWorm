@@ -5,6 +5,7 @@ using DAL.DbContexts;
 using DAL.Infrastructure.Extensions;
 using DAL.Infrastructure.Helpers;
 using DAL.Infrastructure.Models;
+using DAL.Infrastructure.Models.Filters;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
@@ -68,12 +69,11 @@ namespace DAL.Repositories
             }
         }
 
-        public IQueryable<User> GetAll(PagingModel pagingModel)
+        public IQueryable<User> GetAll(UserFilter filter)
         {
-            return _users.Include(u => u.ReaderCard)
-                .AsQueryable()
-                .OrderBy(x => x.RegistrationDate)
-                .GetPage(pagingModel);
+            return filter.Filter(_users)
+                .OrderBy(x => (x.ReaderCard.LastName + " " + x.ReaderCard.FirstName).Trim())
+                .GetPage(filter.PagingModel);
         }
 
         public User GetUserById(int userId)

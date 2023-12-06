@@ -1,12 +1,13 @@
 ﻿using Common.Enums;
 using DAL.Infrastructure.Models;
+using DAL.Infrastructure.Models.Filters;
 using Domain.Models;
 
 namespace DAL.Contracts
 {
     public interface IUserRepository
     {
-        IQueryable<User> GetAll(PagingModel pagingModel);
+        IQueryable<User> GetAll(UserFilter filter);
 
         User GetUserById(int userId);
 

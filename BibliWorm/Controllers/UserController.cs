@@ -2,6 +2,7 @@
 using BLL.Contracts;
 using BLL.Infrastructure.Models;
 using DAL.Infrastructure.Models;
+using DAL.Infrastructure.Models.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Infrastructure.Models;
@@ -69,10 +70,10 @@ namespace WebAPI.Controllers
 
         [HttpGet("get-all")]
         [Authorize]
-        public ActionResult GetAll([FromQuery] PagingModel paging)
+        public ActionResult GetAll([FromQuery] UserFilter filter)
         {
-            var users = _userService.Value.GetAllUsers(paging);
-
+            var users = _userService.Value.GetAllUsers(filter);
+                
             return Ok(users);
         }
 

@@ -28,6 +28,7 @@ public class DepartmentController : ControllerBase
     }
 
     [HttpPost("add-statistics")]
+    [AllowAnonymous]
     public ActionResult AddStatisticsForDepartment([FromBody] CreateDepartmentStatisticsModel departmentStatisticsModel)
     {
         if (!ModelState.IsValid)

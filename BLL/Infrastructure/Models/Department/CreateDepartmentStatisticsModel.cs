@@ -4,11 +4,9 @@ using System.ComponentModel.DataAnnotations;
 namespace BLL.Infrastructure.Models.Department;
 public class CreateDepartmentStatisticsModel
 {
-    [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
-    public Guid DepartmentStatisticsId { get; set; }
+    public Guid DepartmentStatisticsId { get; set; } = Guid.NewGuid();
 
-    [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
-    public DateTime RecordDate { get; set; }
+    public DateTime RecordDate { get; set; } = DateTime.UtcNow;
 
     [Required(ErrorMessage = "FIELD_IS_REQUIRED")]
     [Range(ValidationConstant.NumberOfPeopleAttendedMinValue, ValidationConstant.NumberOfPeopleAttendedMaxValue, ErrorMessage = "RANGE_ERROR_FROM"),]

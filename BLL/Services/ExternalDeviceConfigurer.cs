@@ -59,10 +59,11 @@ public class ExternalDeviceConfigurer : IExternalDeviceConfigurer
             serialPort.WriteLine(serializedRequest);
 
             var serializedResponse = string.Empty;
-            while (!serializedResponse.Contains("Body"))
+            while (!serializedResponse.Contains("Body") || serializedResponse == null)
                 serializedResponse = serialPort.ReadLine();
 
             var response = JsonConvert.DeserializeObject<Response>(serializedResponse);
+            return response;
         }
         catch (Exception ex)
         {
@@ -72,7 +73,5 @@ public class ExternalDeviceConfigurer : IExternalDeviceConfigurer
         {
             serialPort.Close();
         }
-
-        return new Response();
     }
 }

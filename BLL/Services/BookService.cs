@@ -204,7 +204,7 @@ public class BookService : IBookService
 
     public BookCopyModel GetBookCopyByRFID()
     {
-        var rfidTag = ReadRFID().Result;
+        var rfidTag = ReadRFID().GetAwaiter().GetResult();
 
         var bookCopy = _unitOfWork.BookCopies.Value.GetByRFID(rfidTag);
         var bookCopyModel = _mapper.Value.Map<BookCopyModel>(bookCopy);
@@ -264,7 +264,7 @@ public class BookService : IBookService
         if (string.IsNullOrEmpty(ipAddress))
             throw new ArgumentException("RFID_READER_IP_ADDRESS_NOT_SET");
 
-        var rfidReaderURL = string.Format("https://{0}:433", ipAddress);
+        var rfidReaderURL = string.Format("https://{0}:443/rfid", ipAddress);
         var request = new RFIDReaderRequest
         {
             Command = Command.ReadRFID

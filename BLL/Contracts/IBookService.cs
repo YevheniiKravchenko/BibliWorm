@@ -35,4 +35,6 @@ public interface IBookService
     BookModel GetRandomBook();
 
     IEnumerable<BookListItemModel> GetRecomendationsForUser(int userId);
+
+    BookCopyModel GetBookCopyByRFID();
 }

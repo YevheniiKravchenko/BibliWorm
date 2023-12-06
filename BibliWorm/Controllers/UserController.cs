@@ -1,6 +1,6 @@
 ﻿using BibliWorm.Infrastructure.Models;
 using BLL.Contracts;
-using BLL.Infrastructure.Models;
+using BLL.Infrastructure.Models.User;
 using DAL.Infrastructure.Models;
 using DAL.Infrastructure.Models.Filters;
 using Microsoft.AspNetCore.Authorization;

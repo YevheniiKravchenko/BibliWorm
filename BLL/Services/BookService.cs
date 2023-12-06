@@ -1,11 +1,17 @@
 ﻿using AutoMapper;
 using BLL.Contracts;
+using BLL.Infrastructure.Enums;
 using BLL.Infrastructure.Models.Book;
+using BLL.Infrastructure.Models.ExternalDevices;
+using Common.Configs;
 using DAL.Contracts;
 using DAL.Infrastructure.Extensions;
 using DAL.Infrastructure.Models.Filters;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Net;
+using System.Text;
 
 namespace BLL.Services;
 public class BookService : IBookService
@@ -13,15 +19,18 @@ public class BookService : IBookService
     private readonly IUnitOfWork _unitOfWork;
     private readonly Lazy<IMapper> _mapper;
     private readonly Lazy<IUserService> _userService;
+    private readonly Lazy<RFIDReaderSettings> _rfidReaderSettings;
 
     public BookService(
         IUnitOfWork unitOfWork,
         Lazy<IMapper> mapper,
-        Lazy<IUserService> userService)
+        Lazy<IUserService> userService,
+        Lazy<RFIDReaderSettings> rfidReaderSettings)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _userService = userService;
+        _rfidReaderSettings = rfidReaderSettings;
     }
 
     public void AddBook(CreateUpdateBookModel bookModel)
@@ -193,6 +202,16 @@ public class BookService : IBookService
         return recomendedBooks;
     }
 
+    public BookCopyModel GetBookCopyByRFID()
+    {
+        var rfidTag = ReadRFID().Result;
+
+        var bookCopy = _unitOfWork.BookCopies.Value.GetByRFID(rfidTag);
+        var bookCopyModel = _mapper.Value.Map<BookCopyModel>(bookCopy);
+
+        return bookCopyModel;
+    }
+
     #region Helpers
 
     private Book MapCreateUpdateBookModelToBook(CreateUpdateBookModel bookModel)
@@ -237,6 +256,41 @@ public class BookService : IBookService
             genreDictionary.Add(genre.EnumItemId, genre.Value);
 
         return genreDictionary;
+    }
+
+    private async Task<string> ReadRFID()
+    {
+        var ipAddress = _rfidReaderSettings.Value.IPAddress;
+        if (string.IsNullOrEmpty(ipAddress))
+            throw new ArgumentException("RFID_READER_IP_ADDRESS_NOT_SET");
+
+        var rfidReaderURL = string.Format("https://{0}:433", ipAddress);
+        var request = new RFIDReaderRequest
+        {
+            Command = Command.ReadRFID
+        };
+
+        var serializedRequest = JsonConvert.SerializeObject(request, new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore
+        });
+
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+        using var clientHandler = new HttpClientHandler();
+        clientHandler.ServerCertificateCustomValidationCallback
+            = (sender, cert, chain, sslPolicyErrors) => true;
+
+        using var client = new HttpClient(clientHandler);
+        var requestContent = new StringContent(serializedRequest, Encoding.UTF8, "application/json");
+        var httpResponse = await client.PostAsync(rfidReaderURL, requestContent);
+
+        var bytes = await httpResponse.Content.ReadAsByteArrayAsync();
+        var serializedResponse = Encoding.UTF8.GetString(bytes);
+
+        var response = JsonConvert.DeserializeObject<Response>(serializedResponse);
+
+        return response.Body;
     }
 
     #endregion

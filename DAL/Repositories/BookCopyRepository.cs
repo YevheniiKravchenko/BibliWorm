@@ -55,6 +55,14 @@ public class BookCopyRepository : IBookCopyRepository
         return bookCopy;
     }
 
+    public BookCopy GetByRFID(string rfid)
+    {
+        var bookCopy = _bookCopies.FirstOrDefault(bc => bc.RFID == rfid)
+            ?? throw new ArgumentException("BOOK_COPY_NOT_FOUND");
+
+        return bookCopy;
+    }
+
     public void SetBookCopiesAsUnavailable(List<Guid> bookCopiesIds)
     {
         var bookCopies = _bookCopies.Where(bc => bookCopiesIds.Contains(bc.BookCopyId))

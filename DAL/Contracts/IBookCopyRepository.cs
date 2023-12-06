@@ -11,6 +11,8 @@ public interface IBookCopyRepository
 
     BookCopy GetById(Guid bookCopyId);
 
+    BookCopy GetByRFID(string rfid);
+
     void Update(BookCopy updatedBookCopy);
 
     void SetBookCopiesAsUnavailable(List<Guid> bookCopiesIds);

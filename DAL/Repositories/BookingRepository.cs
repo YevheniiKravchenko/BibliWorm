@@ -50,7 +50,10 @@ public class BookingRepository : IBookingRepository
 
     public IQueryable<Booking> GetAll()
     {
-        return _bookings.AsQueryable();
+        return _bookings.AsQueryable()
+            .Include(b => b.BookCopy)
+            .ThenInclude(bc => bc.Book)
+            .ThenInclude(b => b.Genres);
     }
 
     public Booking GetById(Guid bookingId)

@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-
 using Swashbuckle.AspNetCore.Filters;
 
 namespace BibliWorm.Middleware;
@@ -71,7 +70,9 @@ public static class Middleware
             });
 
         var emailCreds = builder.Configuration.GetSection("EmailCreds").Get<EmailCreds>();
+        var rfidReaderSettings = builder.Configuration.GetSection("RFIDReaderSettings").Get<RFIDReaderSettings>();
         builder.Services.AddSingleton(emailCreds);
+        builder.Services.AddSingleton(rfidReaderSettings);
 
         #region Init Mapper Profiles
 

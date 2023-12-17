@@ -1,6 +1,6 @@
 ﻿using Common.Enums;
 
-namespace BLL.Infrastructure.Models
+namespace BLL.Infrastructure.Models.User
 {
     public class UserModel
     {

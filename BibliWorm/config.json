@@ -17,5 +17,8 @@
     "EmailUserName": "noreplymangahub@gmail.com",
     "EmailPassword": "gozr odfg jycg cnsa",
     "ResetPasswordUrl": "https://localhost:7191/api/User/request-reset-password?token={0}"
+  },
+  "RFIDReaderSettings": {
+    "IPAddress": "192.168.0.106"
   }
 }

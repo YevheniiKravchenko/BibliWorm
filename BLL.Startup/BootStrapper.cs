@@ -14,7 +14,8 @@ namespace BLL.Startup
         private static void RegisterServices(ContainerBuilder builder)
         {
             builder.RegisterAssemblyTypes(Assembly.Load("BLL"))
-                .Where(x => x.Name.EndsWith("Service"))
+                .Where(x => x.Name.EndsWith("Service") 
+                    || x.Name.EndsWith("Configurer"))
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
         }

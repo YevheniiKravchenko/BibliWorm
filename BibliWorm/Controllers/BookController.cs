@@ -108,6 +108,15 @@ public class BookController : ControllerBase
         return Ok(bookCopy);
     }
 
+    [HttpGet("get-book-copy-by-rfid")]
+    [Authorize(Roles = "Admin,Librarian")]
+    public ActionResult GetBookCopyByRFID()
+    {
+        var bookCopy = _bookService.GetBookCopyByRFID();
+
+        return Ok(bookCopy);
+    }
+
     [HttpGet("get-most-popular-books")]
     [Authorize(Roles = "Admin,Librarian")]
     public ActionResult GetMostPopularBooks()

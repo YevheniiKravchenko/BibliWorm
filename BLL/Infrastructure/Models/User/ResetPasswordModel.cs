@@ -1,7 +1,7 @@
 ﻿using Common.Constants;
 using System.ComponentModel.DataAnnotations;
 
-namespace BLL.Infrastructure.Models
+namespace BLL.Infrastructure.Models.User
 {
     public class ResetPasswordModel
     {

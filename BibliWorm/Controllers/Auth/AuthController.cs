@@ -1,5 +1,5 @@
 ﻿using BLL.Contracts;
-using BLL.Infrastructure.Models;
+using BLL.Infrastructure.Models.User;
 using Common.Configs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BLL.Infrastructure.Models;
+using BLL.Infrastructure.Models.User;
 using Domain.Models;
 
 namespace BLL.Infrastructure.Automapper

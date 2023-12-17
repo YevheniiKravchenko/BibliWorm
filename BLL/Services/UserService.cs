@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using BLL.Contracts;
-using BLL.Infrastructure.Models;
 using BLL.Infrastructure.Models.Book;
 using BLL.Infrastructure.Models.EnumItem;
+using BLL.Infrastructure.Models.User;
 using Common.Configs;
 using Common.Enums;
 using DAL.Contracts;

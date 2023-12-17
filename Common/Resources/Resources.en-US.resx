@@ -193,4 +193,7 @@
   <data name="NO_DATA" xml:space="preserve">
     <value>Not enough data</value>
   </data>
+  <data name="RFID_READER_IP_ADDRESS_NOT_SET" xml:space="preserve">
+    <value>RFID reader IP address not set</value>
+  </data>
 </root>

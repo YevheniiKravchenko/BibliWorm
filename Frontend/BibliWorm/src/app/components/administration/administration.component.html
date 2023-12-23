@@ -1,0 +1,15 @@
+<div class="administration-wrapper">
+    <div class="administration__backup">
+        <div class="administration__input">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group mb-3">
+                        <label for="rfid">Save path</label>
+                        <input [(ngModel)]="savePath" type="text" class="form-control" id="savePath" placeholder="Save path">
+                    </div>
+                </div>
+            </div>
+            <button [disabled]="savePath === ''" type="button" class="btn btn-primary" (click)="onBackupDatabaseButtonClick()">Backup database</button>
+        </div>
+    </div>
+</div>

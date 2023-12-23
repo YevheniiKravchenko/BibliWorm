@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <h4 class="modal-title">Genre</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close(false)"></button>
+</div>
+<div class="modal-body">
+    <div class="genre-form">
+        <div class="genre-form__content">
+            <form [formGroup]="genreForm">
+                <input formControlName="enumItemId" type="hidden" id="genreId">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group mb-3">
+                            <label for="value">Genre</label>
+                            <input formControlName="value" type="text" class="form-control" id="value" placeholder="Genre">
+                            <p class="text-center" *ngIf="genreForm.get('value')?.invalid && genreForm.get('value')?.touched">
+                                <small *ngIf="genreForm.get('value')?.errors?.['required']" class="text-danger">Field is required</small>
+                                <small *ngIf="genreForm.get('value')?.errors?.['maxlength']" class="text-danger">Maximum length is 64</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="registration-form__buttons text-center parent-container">
+                    <button type="button" class="btn btn-lg px-2 mx-2 btn-danger" (click)="activeModal.close(false)">Cancel</button>
+                    <button [disabled]="genreForm.invalid" class="btn submit-btn btn-success btn-lg px-2 mx-2" (click)="onSubmit()" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+</div>

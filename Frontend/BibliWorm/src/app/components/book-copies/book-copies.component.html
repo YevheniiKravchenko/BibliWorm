@@ -1,0 +1,29 @@
+<div class="book-copies-table-wrapper">
+    <div class="book-copies-table__add-button-wrapper">
+        <button class="btn btn-primary" (click)="onEditButtonClick(emptyGuid)">+</button>
+    </div>
+    <div class="book-copies-table">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">RFID</th>
+                    <th scope="col">Condition</th>
+                    <th scope="col">Is available</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bookCopy of bookCopies$ | async; let i = index">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>{{ bookCopy.rfid }}</td>
+                    <td>{{ bookCopy.condition }}</td>
+                    <td>{{ bookCopy.isAvailable ? 'Yes' : 'No' }}</td>
+                    <td><button type="button" class="btn btn-primary" (click)="onEditButtonClick(bookCopy.bookCopyId)">Edit</button></td>
+                    <td><button type="button" class="btn btn-danger" (click)="onDeleteButtonClick(bookCopy.bookCopyId)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

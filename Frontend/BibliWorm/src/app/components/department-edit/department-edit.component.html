@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <h4 class="modal-title">Department</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close(false)"></button>
+</div>
+<div class="modal-body">
+    <div class="department-form">
+        <div class="department-form__content">
+            <form [formGroup]="departmentForm">
+                <input formControlName="departmentId" type="hidden" id="departmentId">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group mb-3">
+                            <label for="name">Name</label>
+                            <input formControlName="name" type="text" class="form-control" id="name" placeholder="Name">
+                            <p class="text-center" *ngIf="departmentForm.get('name')?.invalid && departmentForm.get('name')?.touched">
+                                <small *ngIf="departmentForm.get('name')?.errors?.['required']" class="text-danger">Field is required</small>
+                                <small *ngIf="departmentForm.get('name')?.errors?.['maxlength']" class="text-danger">Maximum length is 50</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="registration-form__buttons text-center parent-container">
+                    <button type="button" class="btn btn-lg px-2 mx-2 btn-danger" (click)="activeModal.close(false)">Cancel</button>
+                    <button [disabled]="departmentForm.invalid" class="btn submit-btn btn-success btn-lg px-2 mx-2" (click)="onSubmit()" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+</div>

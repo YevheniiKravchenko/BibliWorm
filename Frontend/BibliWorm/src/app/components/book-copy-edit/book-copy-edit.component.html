@@ -1,0 +1,50 @@
+<div class="modal-header">
+    <h4 class="modal-title">Book copy</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close(false)"></button>
+</div>
+<div class="modal-body">
+    <div class="book-copy-form">
+        <div class="book-copy-form__content">
+            <form [formGroup]="bookCopyForm">
+                <input formControlName="bookId" type="hidden" id="bookId">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group mb-3">
+                            <label for="rfid">RFID</label>
+                            <input formControlName="rfid" type="text" class="form-control" id="rfid" placeholder="RFID">
+                            <p class="text-center" *ngIf="bookCopyForm.get('rfid')?.invalid && bookCopyForm.get('rfid')?.touched">
+                                <small *ngIf="bookCopyForm.get('rfid')?.errors?.['required']" class="text-danger">Field is required</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group mb-3">
+                            <label for="condition">Condition</label>
+                            <input formControlName="condition" type="text" class="form-control" id="condition" placeholder="Condition">
+                            <p class="text-center" *ngIf="bookCopyForm.get('condition')?.invalid && bookCopyForm.get('condition')?.touched">
+                                <small *ngIf="bookCopyForm.get('title')?.errors?.['maxlength']" class="text-danger">Maximum length is 252</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group mb-3">
+                            <label for="isAvailable">Is available</label>
+                            <input formControlName="isAvailable" type="checkbox" class="form-check-input" id="isAvailable">
+                        </div>
+                    </div>
+                </div>
+                <div class="book-copy-form__buttons text-center parent-container">
+                    <button type="button" class="btn btn-lg px-5 mx-2 btn-danger" (click)="activeModal.close(false)">Cancel</button>
+                    <button [disabled]="bookCopyForm.invalid" class="btn submit-btn btn-success btn-lg px-5 mx-2" (click)="onSubmit()" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    
+</div>

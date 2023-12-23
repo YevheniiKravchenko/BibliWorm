@@ -1,0 +1,15 @@
+.users-table {
+    height: 100%;
+    overflow: auto;
+
+    &-wrapper {
+        height: 55vmin;
+        width: 160vmin;
+    }
+
+    &__search {
+        margin-bottom: 20px;
+        display: flex;
+        gap: 10px;
+    }
+}

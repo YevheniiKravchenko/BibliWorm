@@ -1,0 +1,27 @@
+<div class="departments-table-wrapper">
+    <div class="departments-table__add-button-wrapper">
+        <button class="btn btn-primary" (click)="onEditButtonClick(0)">+</button>
+    </div>
+    <div class="departments-table">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">People attanded for last month</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let department of departments$ | async">
+                    <th scope="row">{{ department.departmentId }}</th>
+                    <td>{{ department.name }}</td>
+                    <td>{{ department.peopleAttendedForLastMonth }}</td>
+                    <td><button type="button" class="btn btn-primary" (click)="onEditButtonClick(department.departmentId)">Edit</button></td>
+                    <td><button type="button" class="btn btn-danger" (click)="onDeleteButtonClick(department.departmentId)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

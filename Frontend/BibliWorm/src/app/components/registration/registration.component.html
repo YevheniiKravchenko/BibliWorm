@@ -1,0 +1,97 @@
+<div class="registration-form">
+    <div class="registration-form__title">
+        <span>Registration</span>
+    </div>
+    <div class="registration-form__content">
+        <form [formGroup]="registrationForm">
+            <div class="form-group mb-3">
+                <label for="login">Login</label>
+                <input formControlName="login" type="text" class="form-control" id="login" placeholder="Login">
+                <p class="text-center" *ngIf="registrationForm.get('login')?.invalid && registrationForm.get('login')?.touched">
+                    <small *ngIf="registrationForm.get('login')?.errors?.['required']" class="text-danger">Field is required</small>
+                    <small *ngIf="registrationForm.get('login')?.errors?.['minlength']" class="text-danger">Minimum length is 4</small>
+                    <small *ngIf="registrationForm.get('login')?.errors?.['maxlength']" class="text-danger">Maximum length is 32</small>
+                </p>
+            </div>
+            <div class="form-group mb-3">
+                <label for="password">Password</label>
+                <input formControlName="password" type="password" class="form-control" id="password" placeholder="Password">
+                <p class="text-center" *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched">
+                    <small *ngIf="registrationForm.get('password')?.errors?.['required']" class="text-danger">Field is required</small>
+                    <small *ngIf="registrationForm.get('password')?.errors?.['minlength']" class="text-danger">Minimum length is 4</small>
+                    <small *ngIf="registrationForm.get('password')?.errors?.['maxlength']" class="text-danger">Maximum length is 32</small>
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group mb-3">
+                        <label for="firstName">First name</label>
+                        <input formControlName="firstName" type="text" class="form-control" id="firstName" placeholder="First name">
+                        <p class="text-center" *ngIf="registrationForm.get('firstName')?.invalid && registrationForm.get('firstName')?.touched">
+                            <small *ngIf="registrationForm.get('firstName')?.errors?.['required']" class="text-danger">Field is required</small>
+                            <small *ngIf="registrationForm.get('firstName')?.errors?.['minlength']" class="text-danger">Minimum length is 4</small>
+                            <small *ngIf="registrationForm.get('firstName')?.errors?.['maxlength']" class="text-danger">Maximum length is 50</small>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group mb-3">
+                        <label for="lastName">Last name</label>
+                        <input formControlName="lastName" type="text" class="form-control" id="lastName" placeholder="Last name">
+                        <p class="text-center" *ngIf="registrationForm.get('lastName')?.invalid && registrationForm.get('lastName')?.touched">
+                            <small *ngIf="registrationForm.get('lastName')?.errors?.['required']" class="text-danger">Field is required</small>
+                            <small *ngIf="registrationForm.get('lastName')?.errors?.['minlength']" class="text-danger">Minimum length is 4</small>
+                            <small *ngIf="registrationForm.get('lastName')?.errors?.['maxlength']" class="text-danger">Maximum length is 50</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group mb-3">
+                        <label for="address">Address</label>
+                        <input formControlName="address" type="text" class="form-control" id="address" placeholder="Address">
+                        <p class="text-center" *ngIf="registrationForm.get('address')?.invalid && registrationForm.get('address')?.touched">
+                            <small *ngIf="registrationForm.get('address')?.errors?.['required']" class="text-danger">Field is required</small>
+                            <small *ngIf="registrationForm.get('address')?.errors?.['minlength']" class="text-danger">Minimum length is 4</small>
+                            <small *ngIf="registrationForm.get('address')?.errors?.['maxlength']" class="text-danger">Maximum length is 100</small>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group mb-3">
+                        <label for="phoneNumber">Phone number</label>
+                        <input formControlName="phoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="Phone number">
+                        <p class="text-center" *ngIf="registrationForm.get('phoneNumber')?.invalid && registrationForm.get('phoneNumber')?.touched">
+                            <small *ngIf="registrationForm.get('phoneNumber')?.errors?.['required']" class="text-danger">Field is required</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group mb-3">
+                        <label for="birthDate">Birth date</label>
+                        <input formControlName="birthDate" type="date" class="form-control" id="birthDate" placeholder="Birth date">
+                        <p class="text-center" *ngIf="registrationForm.get('birthDate')?.invalid && registrationForm.get('birthDate')?.touched">
+                            <small *ngIf="registrationForm.get('birthDate')?.errors?.['required']" class="text-danger">Field is required</small>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group mb-3">
+                        <label for="email">Email</label>
+                        <input formControlName="email" type="text" class="form-control" id="email" placeholder="Email">
+                        <p class="text-center" *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched">
+                            <small *ngIf="registrationForm.get('email')?.errors?.['required']" class="text-danger">Field is required</small>
+                            <small *ngIf="registrationForm.get('email')?.errors?.['email']" class="text-danger">Invalid email</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="registration-form__submit text-center parent-container">
+                <button [disabled]="registrationForm.invalid" class="btn submit-btn btn-lg px-5" (click)="onSubmit()" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

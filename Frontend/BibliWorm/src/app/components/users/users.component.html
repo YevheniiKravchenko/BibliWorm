@@ -1,0 +1,38 @@
+<div class="users-table-wrapper">
+    <div class="users-table__search">
+        <div class="form-group">
+            <input [(ngModel)]="searchQuery" type="text" class="form-control" id="search">
+        </div>
+        <button (click)="onSearchClick()" type="button" class="btn btn-primary">Search</button>
+    </div>
+    <div class="users-table">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Birth date</th>
+                    <th scope="col">Email</th>
+                    <th *ngIf="isAdmin()">Role</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users$ | async">
+                    <th scope="row">{{ user.userId }}</th>
+                    <td>{{ user.lastName + " " + user.firstName }}</td>
+                    <td>{{ user.birthDateString }}</td>
+                    <td>{{ user.email }}</td>
+                    <td *ngIf="isAdmin()">
+                        <select class="form-select" (change)="onChange($event, user.userId)">
+                            <option *ngFor="let role of getRoles(); trackBy: identify" [value]="role.value" [label]="role.label" [selected]="role.value === user.role"></option>
+                        </select>
+                    </td>
+                    <td><button type="button" class="btn btn-primary" (click)="onBookButtonClick(user.userId)">Books</button></td>
+                    <td><button type="button" class="btn btn-primary" (click)="onCardButtonClick(user.userId    )">Card</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="books-table-wrapper">
+    <div class="books-table__header">
+        <div class="books-table__search">
+            <div class="form-group">
+                <input [(ngModel)]="searchQuery" type="text" class="form-control" id="search">
+            </div>
+            <button (click)="onSearchClick()" type="button" class="btn btn-primary">Search</button>
+        </div>
+        <div class="books-table__statistics">
+            <button (click)="onGetMostPopularBooksButtonClick()" type="button" class="btn btn-primary">Get most popular books</button>
+            <div class="books-table__most-popular-in-genre">
+                <select class="form-select" [(ngModel)]="selectedGenreId">
+                    <option *ngFor="let genre of genres$ | async; trackBy: identify" [value]="genre.enumItemId" [label]="genre.value"></option>
+                </select>
+                <button (click)="onGetMostPopularBooksInGenreButtonClick()" type="button" class="btn btn-primary">Get most popular books in genre</button>
+            </div>
+        </div>
+    </div>
+    <div class="books-table__add-button-wrapper">
+        <button class="btn btn-primary" (click)="onEditButtonClick(emptyGuid)">+</button>
+    </div>
+    <div class="users-table">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Publication date</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Key words</th>
+                    <th scope="col">Department</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let book of books$ | async; let i = index">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.isbn }}</td>
+                    <td>{{ book.publicationDate }}</td>
+                    <td>{{ book.description }}</td>
+                    <td>{{ book.keyWords }}</td>
+                    <td>{{ book.departmentName }}</td>
+                    <td><button type="button" class="btn btn-primary" (click)="onBooksButtonClick(book.bookId)">Copies</button></td>
+                    <td><button type="button" class="btn btn-primary" (click)="onEditButtonClick(book.bookId)">Edit</button></td>
+                    <td><button type="button" class="btn btn-danger" (click)="onDeleteButtonClick(book.bookId)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

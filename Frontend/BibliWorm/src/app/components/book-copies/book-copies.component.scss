@@ -1,0 +1,15 @@
+.book-copies-table {
+    height: 100%;
+    overflow: auto;
+
+    &-wrapper {
+        height: 55vmin;
+        width: 160vmin;
+    }
+
+    &__add-button-wrapper {
+        display: flex;
+        justify-content: end;
+        margin-bottom: 20px;
+    }
+}

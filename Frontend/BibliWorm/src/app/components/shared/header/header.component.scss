@@ -1,0 +1,21 @@
+nav {
+    background-color:#808080 !important;
+    box-shadow: 1px 10px 40px;
+    height: 75px;
+
+    button {
+        &.active {
+            background-color: #30373D;
+            color: #fff;
+        }
+    }
+}
+
+.main-navs {
+    display: flex;
+    margin-left: 10px;
+}
+
+.auth-navs {
+    display: flex;
+}

@@ -1,0 +1,45 @@
+.books-table {
+    height: 100%;
+    overflow: auto;
+
+    &-wrapper {
+        height: 55vmin;
+        width: 160vmin;
+    }
+
+    &__header {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #808080;
+        padding-bottom: 10px;
+    }
+
+    &__search {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    &__statistics {
+        display: flex;
+        gap: 40px;
+        align-items: center;
+        justify-content: space-around;
+        
+        button {
+            text-wrap: nowrap;
+        }
+    }
+
+    &__most-popular-in-genre {
+        display: flex;
+        gap: 10px;
+    }
+
+    &__add-button-wrapper {
+        display: flex;
+        justify-content: end;
+        margin-bottom: 20px;
+    }
+}

@@ -1,0 +1,9 @@
+.user-bookings-table {
+    height: 100%;
+    overflow: auto;
+
+    &-wrapper {
+        height: 55vmin;
+        width: 100vmin;
+    }
+}

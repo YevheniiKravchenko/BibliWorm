@@ -1,0 +1,15 @@
+.genres-table {
+    height: 100%;
+    overflow: auto;
+
+    &__add-button-wrapper {
+        display: flex;
+        justify-content: end;
+        margin-bottom: 20px;
+    }
+
+    &-wrapper {
+        height: 55vmin;
+        width: 100vmin;
+    }
+}

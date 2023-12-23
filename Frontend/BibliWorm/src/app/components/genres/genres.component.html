@@ -1,0 +1,25 @@
+<div class="genres-table-wrapper">
+    <div class="genres-table__add-button-wrapper">
+        <button class="btn btn-primary" (click)="onEditButtonClick(0)">+</button>
+    </div>
+    <div class="genres-table">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Genre</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let genre of genres$ | async">
+                    <th scope="row">{{ genre.enumItemId }}</th>
+                    <td>{{ genre.value }}</td>
+                    <td><button type="button" class="btn btn-primary" (click)="onEditButtonClick(genre.enumItemId)">Edit</button></td>
+                    <td><button type="button" class="btn btn-danger" (click)="onDeleteButtonClick(genre.enumItemId)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

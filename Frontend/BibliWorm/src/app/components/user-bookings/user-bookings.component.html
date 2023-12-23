@@ -1,0 +1,26 @@
+<div class="user-bookings-table-wrapper">
+    <div class="user-bookings-table">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Book</th>
+                    <th scope="col">Booked</th>
+                    <th scope="col">Must return on</th>
+                    <th scope="col">Returned on</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let userBooking of userBookings$ | async; let i = index">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>{{ userBooking.bookTitle }}</td>
+                    <td>{{ userBooking.bookedOn }}</td>
+                    <td>{{ userBooking.mustReturnOn }}</td>
+                    <td>{{ userBooking.returnedOn }}</td>
+                    <td *ngIf="!userBooking.isReturned"><button type="button" class="btn btn-warning" (click)="onReturnButtonClick(userBooking.bookingId)">Return</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

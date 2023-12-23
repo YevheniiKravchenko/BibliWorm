@@ -1,0 +1,121 @@
+<div class="modal-header">
+    <h4 class="modal-title">Book</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close(false)"></button>
+</div>
+<div class="modal-body">
+    <div class="book-form">
+        <div class="book-form__content">
+            <form [formGroup]="bookForm">
+                <input formControlName="bookId" type="hidden" id="bookId">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group mb-3">
+                            <label for="title">Title</label>
+                            <input formControlName="title" type="text" class="form-control" id="title" placeholder="Title">
+                            <p class="text-center" *ngIf="bookForm.get('title')?.invalid && bookForm.get('title')?.touched">
+                                <small *ngIf="bookForm.get('title')?.errors?.['required']" class="text-danger">Field is required</small>
+                                <small *ngIf="bookForm.get('title')?.errors?.['minlength']" class="text-danger">Minimum length is 1</small>
+                                <small *ngIf="bookForm.get('title')?.errors?.['maxlength']" class="text-danger">Maximum length is 200</small>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group mb-3">
+                            <label for="author">Author</label>
+                            <input formControlName="author" type="text" class="form-control" id="author" placeholder="Author">
+                            <p class="text-center" *ngIf="bookForm.get('author')?.invalid && bookForm.get('author')?.touched">
+                                <small *ngIf="bookForm.get('author')?.errors?.['maxlength']" class="text-danger">Maximum length is 252</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group mb-3">
+                            <label for="isbn">ISBN</label>
+                            <input formControlName="isbn" type="text" class="form-control" id="isbn" placeholder="ISBN">
+                            <p class="text-center" *ngIf="bookForm.get('isbn')?.invalid && bookForm.get('isbn')?.touched">
+                                <small *ngIf="bookForm.get('isbn')?.errors?.['required']" class="text-danger">Field is required</small>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group mb-3">
+                            <label for="publicationDate">Publication date</label>
+                            <input formControlName="publicationDate" type="date" class="form-control" id="publicationDate" placeholder="Publication date">
+                            <p class="text-center" *ngIf="bookForm.get('publicationDate')?.invalid && bookForm.get('publicationDate')?.touched">
+                                <small *ngIf="bookForm.get('publicationDate')?.errors?.['required']" class="text-danger">Field is required</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group mb-3">
+                            <label for="publisher">Publisher</label>
+                            <input formControlName="publisher" type="text" class="form-control" id="publisher" placeholder="Publisher">
+                            <p class="text-center" *ngIf="bookForm.get('publisher')?.invalid && bookForm.get('publisher')?.touched">
+                                <small *ngIf="bookForm.get('publisher')?.errors?.['maxlength']" class="text-danger">Maximum length is 252</small>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group mb-3">
+                            <label for="description">Description</label>
+                            <input formControlName="description" type="text" class="form-control" id="description" placeholder="Description">
+                            <p class="text-center" *ngIf="bookForm.get('description')?.invalid && bookForm.get('description')?.touched">
+                                <small *ngIf="bookForm.get('description')?.errors?.['maxlength']" class="text-danger">Maximum length is 512</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group mb-3">
+                            <label for="pagesAmount">Pages amount</label>
+                            <input formControlName="pagesAmount" type="number" min="1" class="form-control" id="pagesAmount" placeholder="Pages amount">
+                            <p class="text-center" *ngIf="bookForm.get('pagesAmount')?.invalid && bookForm.get('pagesAmount')?.touched">
+                                <small *ngIf="bookForm.get('pagesAmount')?.errors?.['required']" class="text-danger">Field is required</small>
+                                <small *ngIf="bookForm.get('pagesAmount')?.errors?.['min']" class="text-danger">Minimum value is 1</small>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group mb-3">
+                            <label for="keyWords">Key words</label>
+                            <input formControlName="keyWords" type="text" class="form-control" id="keyWords" placeholder="Key words">
+                            <p class="text-center" *ngIf="bookForm.get('keyWords')?.invalid && bookForm.get('keyWords')?.touched">
+                                <small *ngIf="bookForm.get('keyWords')?.errors?.['maxlength']" class="text-danger">Maximum length is 512</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group mb-3">
+                            <label for="departmentId">Department</label>
+                            <select formControlName="departmentId" class="form-control" id="departmentId" placeholder="Department">
+                                <option *ngFor="let department of departments$ | async | keyvalue; trackBy: identify" [value]="department.key" [label]="department.value" [selected]="+department.key === book.departmentId"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group mb-3">
+                            <label for="genres">Genre</label>
+                            <select formControlName="genres" type="text" class="form-control" id="genres" placeholder="Genre">
+                                <option *ngFor="let genre of genres$ | async | keyvalue; trackBy: identify" [value]="genre.key" [label]="genre.value"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-form__buttons text-center parent-container">
+                    <button type="button" class="btn btn-lg px-5 mx-2 btn-danger" (click)="activeModal.close(false)">Cancel</button>
+                    <button [disabled]="bookForm.invalid" class="btn submit-btn btn-success btn-lg px-5 mx-2" (click)="onSubmit()" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    
+</div>

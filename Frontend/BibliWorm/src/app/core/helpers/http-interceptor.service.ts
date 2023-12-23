@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
 import { Token } from '../models/auth/token';
+import { L10nTranslationService } from 'angular-l10n';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +17,8 @@ export class HttpRequestInterceptor implements HttpInterceptor {
     constructor(
         private storageService: StorageService,
         private authService: AuthService,
-        private router: Router
+        private router: Router,
+        private translation: L10nTranslationService,
     ) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -28,6 +30,7 @@ export class HttpRequestInterceptor implements HttpInterceptor {
         req = req.clone({
             headers: req.headers
                 .set('Authorization', `Bearer ${token.accessToken}`)
+                .set('Accept-Language', this.storageService.getLocale() == undefined ? "uk-UA" : this.storageService.getLocale()!),
         });
 
         return next.handle(req).pipe(

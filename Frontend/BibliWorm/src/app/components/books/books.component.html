@@ -4,15 +4,15 @@
             <div class="form-group">
                 <input [(ngModel)]="searchQuery" type="text" class="form-control" id="search">
             </div>
-            <button (click)="onSearchClick()" type="button" class="btn btn-primary">Search</button>
+            <button (click)="onSearchClick()" type="button" class="btn btn-primary">{{ 'search' | translateAsync }}</button>
         </div>
         <div class="books-table__statistics">
-            <button (click)="onGetMostPopularBooksButtonClick()" type="button" class="btn btn-primary">Get most popular books</button>
+            <button (click)="onGetMostPopularBooksButtonClick()" type="button" class="btn btn-primary">{{ 'getMostPopularBooks' | translateAsync }}</button>
             <div class="books-table__most-popular-in-genre">
                 <select class="form-select" [(ngModel)]="selectedGenreId">
                     <option *ngFor="let genre of genres$ | async; trackBy: identify" [value]="genre.enumItemId" [label]="genre.value"></option>
                 </select>
-                <button (click)="onGetMostPopularBooksInGenreButtonClick()" type="button" class="btn btn-primary">Get most popular books in genre</button>
+                <button (click)="onGetMostPopularBooksInGenreButtonClick()" type="button" class="btn btn-primary">{{ 'getMostPopularBooksInGenre' | translateAsync }}</button>
             </div>
         </div>
     </div>
@@ -24,13 +24,13 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Author</th>
-                    <th scope="col">ISBN</th>
-                    <th scope="col">Publication date</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Key words</th>
-                    <th scope="col">Department</th>
+                    <th scope="col">{{ 'title' | translateAsync }}</th>
+                    <th scope="col">{{ 'author' | translateAsync }}</th>
+                    <th scope="col">{{ 'isbn' | translateAsync }}</th>
+                    <th scope="col">{{ 'publicationDate' | translateAsync }}</th>
+                    <th scope="col">{{ 'description' | translateAsync}}</th>
+                    <th scope="col">{{ 'keyWords' | translateAsync }}</th>
+                    <th scope="col">{{ 'department' | translateAsync}}</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
@@ -46,9 +46,9 @@
                     <td>{{ book.description }}</td>
                     <td>{{ book.keyWords }}</td>
                     <td>{{ book.departmentName }}</td>
-                    <td><button type="button" class="btn btn-primary" (click)="onBooksButtonClick(book.bookId)">Copies</button></td>
-                    <td><button type="button" class="btn btn-primary" (click)="onEditButtonClick(book.bookId)">Edit</button></td>
-                    <td><button type="button" class="btn btn-danger" (click)="onDeleteButtonClick(book.bookId)">Delete</button></td>
+                    <td><button type="button" class="btn btn-primary" (click)="onBooksButtonClick(book.bookId)">{{ 'copies' | translateAsync }}</button></td>
+                    <td><button type="button" class="btn btn-primary" (click)="onEditButtonClick(book.bookId)">{{ 'edit' | translateAsync }}</button></td>
+                    <td><button type="button" class="btn btn-danger" (click)="onDeleteButtonClick(book.bookId)">{{ 'delete' |translateAsync }}</button></td>
                 </tr>
             </tbody>
         </table>

@@ -4,11 +4,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrModule } from 'ngx-toastr';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslationLoader, l10nConfig } from './l10n-config';
+import { L10N_CONFIG, L10N_LOCALE, L10nConfig, L10nDateDirective, L10nIntlModule, L10nLoader, L10nLocale, L10nTranslationModule, L10nTranslationService } from 'angular-l10n';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/shared/header/header.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { RegistrationComponent } from './components/registration/registration.component';
@@ -26,6 +29,8 @@ import { BookCopiesComponent } from './components/book-copies/book-copies.compon
 import { BookCopyEditComponent } from './components/book-copy-edit/book-copy-edit.component';
 import { UserBookingsComponent } from './components/user-bookings/user-bookings.component';
 import { AdministrationComponent } from './components/administration/administration.component';
+import { createTranslateLoader } from './core/helpers/helpers';
+
 
 @NgModule({
     declarations: [
@@ -67,11 +72,29 @@ import { AdministrationComponent } from './components/administration/administrat
                 disallowedRoutes: ['example.com/login'],
             },
         }),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: createTranslateLoader,
+                deps: [HttpClient]
+            }
+        }),
+        L10nTranslationModule.forRoot(
+            l10nConfig,
+            {
+              translationLoader: TranslationLoader
+            }
+        ),
+        L10nIntlModule,
+        L10nDateDirective
+    ],
+    exports: [
+        L10nTranslationModule
     ],
     providers: [
         httpInterceptorProviders,
         JwtHelperService
     ],
-  bootstrap: [AppComponent]
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

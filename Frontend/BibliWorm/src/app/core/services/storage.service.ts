@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Role } from '../enums/role';
 
 const USER_TOKEN = 'auth-user';
+const LOCALE = 'locale';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +64,16 @@ export class StorageService {
 
         return currentUserRole === Role[Role.Admin] 
             || currentUserRole === Role[Role.Librarian];
+    }
+
+    public saveLocale(locale: string) {
+        window.sessionStorage.removeItem(LOCALE);
+        window.sessionStorage.setItem(LOCALE, locale);
+    }
+
+    public getLocale() {
+        var data = window.sessionStorage.getItem(LOCALE);
+        return data;
     }
 
     private getCurrentUserRole(): string {

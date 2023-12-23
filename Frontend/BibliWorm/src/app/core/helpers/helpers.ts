@@ -1,3 +1,6 @@
+import { HttpClient } from "@angular/common/http";
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 export function setActiveButton(buttonSelector: string) {
     setTimeout(() => {
         activateButton(buttonSelector);
@@ -25,4 +28,8 @@ function disativateButtons(): void {
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove('active');
     }
+}
+
+export function createTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
